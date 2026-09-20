@@ -73,6 +73,25 @@ For AI and agent projects, it can also document the AI capability, the reason to
 
 For a Skill or documentation project, it focuses on what the Skill is for, when it should trigger, how its workflow works, what decisions it makes, what references and examples it uses, what output it should produce, and how it can fail.
 
+### A small example
+
+Input:
+
+```text
+This is an old repository with a README, a few source files, and Git history.
+Use project-profile to explain what it was for and create PROJECT_PROFILE.md.
+```
+
+The Skill first inspects the repository. If it cannot find who used the project or whether any result was measured, it asks focused questions such as:
+
+```text
+1. Who was the intended user of this project?
+2. Were any results or performance numbers measured?
+3. Is there a design decision you remember making that is not documented here?
+```
+
+The resulting profile records the recovered facts, labels user-provided answers, and marks unanswered material questions as `UNKNOWN` only after the Interview.
+
 ### What it will not do
 
 It will not make up:
@@ -112,6 +131,12 @@ Copy the `project-profile` folder into the skills directory used by your agent. 
 ~/.codex/skills/project-profile
 ```
 
+If your agent supports the Skills CLI, you can install it directly:
+
+```bash
+npx skills add lwyp41/project-profile --skill project-profile
+```
+
 For other agents, use their equivalent `skills/` directory. The Skill follows the portable `SKILL.md` format and does not require a runtime dependency.
 
 ### How it works
@@ -122,6 +147,8 @@ The Skill follows a simple sequence:
 inspect → classify → map evidence → identify gaps
 → ask focused questions → draft → validate → review → generate
 ```
+
+In plain English: inspect first, ask only what matters, write a draft, let you correct it, then generate the final profile.
 
 Every important claim is labelled as one of:
 
@@ -229,6 +256,25 @@ MIT. See [LICENSE](LICENSE).
 
 对于 Skill 或 Documentation 项目，它重点说明这个 Skill 是做什么的、什么时候触发、如何工作、如何做决策、使用哪些参考资料和示例、应该输出什么，以及可能如何失败。
 
+### 一个小例子
+
+输入：
+
+```text
+这是一个以前留下的旧仓库，里面有 README、一些源文件和 Git 历史。
+请使用 project-profile 说明它是做什么的，并生成 PROJECT_PROFILE.md。
+```
+
+Skill 会先检查仓库。如果找不到项目面向谁，或找不到任何结果指标，它会提出少量具体问题，例如：
+
+```text
+1. 这个项目原本准备给谁使用？
+2. 是否测量过结果或性能指标？
+3. 有没有一个仓库里没有记录、但你还记得的关键设计决策？
+```
+
+最终档案会记录已经恢复的事实，标注用户补充的信息；重要问题只有在 Interview 之后仍然没有答案时，才会标记为 `UNKNOWN`。
+
 ### 它不会做什么
 
 它不会编造：
@@ -266,6 +312,12 @@ git clone https://github.com/lwyp41/project-profile.git
 ~/.codex/skills/project-profile
 ```
 
+如果你的 Agent 支持 Skills CLI，也可以直接安装：
+
+```bash
+npx skills add lwyp41/project-profile --skill project-profile
+```
+
 其他 Agent 使用它们对应的 `skills/` 目录即可。这个 Skill 遵循通用的 `SKILL.md` 格式，不需要额外运行时依赖。
 
 ### 它如何工作
@@ -274,6 +326,8 @@ git clone https://github.com/lwyp41/project-profile.git
 检查材料 → 判断项目类型 → 建立证据图 → 找出缺口
 → 提出少量问题 → 起草 → 验证 → Review → 生成
 ```
+
+简单说：先检查材料，只问重要问题，先写草稿让你修改，最后才生成正式档案。
 
 每个重要结论会标记为：
 

@@ -4,6 +4,7 @@ All notable changes to `project-profile` are recorded here.
 
 ## [Unreleased]
 
+- Add direct Skills CLI installation commands and bilingual input/output examples to the README.
 - Simplify the English and Chinese README quick-start instructions and explain that the Skill owns the investigation and Interview workflow.
 - Require material, user-resolvable evidence gaps to pass through `CLARIFICATION_REQUIRED` and the Progressive User Interview before they can become `UNKNOWN`.
 - Clarify the bilingual README around concrete user problems, quick-start examples, supported project shapes, and practical limitations.
