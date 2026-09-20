@@ -11,6 +11,28 @@
 | `NOT_APPLICABLE` | The concept does not apply to this project | Do not use merely because evidence is missing |
 | `CONFLICTING` | Credible sources disagree | Preserve both sources and explain the conflict |
 
+## Required gap transition
+
+For every material field with missing repository or documentation evidence, apply this order:
+
+```text
+Missing evidence
+  → Can a focused user answer resolve it?
+    → yes: CLARIFICATION_REQUIRED → Progressive User Interview
+    → no: UNKNOWN
+```
+
+After the interview, update `CLARIFICATION_REQUIRED` as follows:
+
+- user gives a direct answer → `VERIFIED` (source kind: `user`);
+- user gives a qualified answer → `INFERRED` or keep `CLARIFICATION_REQUIRED` when more precision is needed;
+- user says “no” → `VERIFIED` negative fact (source kind: `user`);
+- user says “I don't know” or “I don't remember” → `UNKNOWN`;
+- user says “not applicable” → `NOT_APPLICABLE`;
+- user declines or cannot be reached → `UNKNOWN`, with the reason recorded.
+
+Do not bypass this transition because the profile can still be drafted without the answer. The purpose of `CLARIFICATION_REQUIRED` is to make important, answerable gaps visible to the user before they become unknown.
+
 ## Source kinds
 
 - `repository`: source files, configuration, tests, assets, package metadata, generated artifacts.

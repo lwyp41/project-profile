@@ -13,6 +13,7 @@ Create a defensible profile of a completed project. Treat every claim as evidenc
 - Read [profile-schema.md](references/profile-schema.md) before shaping the profile, [evidence-policy.md](references/evidence-policy.md) before assigning certainty, and only the conditional references needed for the project type.
 - Model each material claim with one of: `VERIFIED`, `INFERRED`, `CLARIFICATION_REQUIRED`, `UNKNOWN`, `NOT_APPLICABLE`, `CONFLICTING`.
 - Distinguish `UNKNOWN` (relevant but not recoverable) from `NOT_APPLICABLE` (the concept does not apply). A missing traditional software artifact is not evidence that the project is low quality.
+- Do not assign `UNKNOWN` merely because repository evidence is absent. For a material claim that a focused user answer could resolve, assign `CLARIFICATION_REQUIRED` and include it in the next interview round. Assign `UNKNOWN` only after the user cannot answer, declines to answer, or the claim cannot be reliably recovered through either investigation or interview.
 - Accepted user answers include “no”, “I don’t know”, “not applicable”, and “I don’t remember”; encode them explicitly rather than pressing for a speculative answer.
 - Never fabricate metrics, business impact, user counts, decision rationale, alternatives, or outcomes. Preserve conflicts and provenance.
 
@@ -48,7 +49,7 @@ Extract facts first, then bounded inferences. For each inference, state the obse
 
 ### 6. Detect Knowledge Gaps
 
-Mark every required schema field as `VERIFIED`, `INFERRED`, `CLARIFICATION_REQUIRED`, `UNKNOWN`, `NOT_APPLICABLE`, or `CONFLICTING`. Rank gaps by decision value: a gap blocks a material claim only if resolving it would change the profile’s interpretation, safety, or user-facing conclusion.
+Mark every required schema field as `VERIFIED`, `INFERRED`, `CLARIFICATION_REQUIRED`, `UNKNOWN`, `NOT_APPLICABLE`, or `CONFLICTING`. For a material field missing from the artifacts, first ask whether a focused user answer could resolve it. If yes, mark it `CLARIFICATION_REQUIRED`; do not draft it as `UNKNOWN` before the interview. Use `UNKNOWN` only when the field is relevant but cannot be recovered after investigation and the available interview opportunity. Rank gaps by decision value: a gap blocks a material claim only if resolving it would change the profile’s interpretation, safety, or user-facing conclusion.
 
 ### 7. Progressive User Interview
 
@@ -74,6 +75,7 @@ Write `PROJECT_PROFILE.md` using [templates/PROJECT_PROFILE.md](templates/PROJEC
 
 - [ ] Project type and analysis mode are justified by evidence.
 - [ ] Evidence map covers every material claim and uses allowed source kinds.
+- [ ] Every material, user-resolvable gap was asked in the interview before it was labelled `UNKNOWN`.
 - [ ] Unknown and N/A are not conflated.
 - [ ] No unsupported metrics, impact, users, rationale, alternatives, or outcomes were invented.
 - [ ] Conditional sections are expanded only when applicable.

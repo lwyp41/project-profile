@@ -81,7 +81,7 @@ It will not make up:
 - alternatives you never considered;
 - success claims that the available evidence cannot support.
 
-If an important answer cannot be recovered, the profile says so. If a section does not apply, it marks it as not applicable. Before the final profile is generated, you get a review step to correct the draft and confirm unresolved claims.
+When an important answer is missing from the project materials, the Skill first asks whether you can clarify it. It becomes `UNKNOWN` only when you cannot answer, decline to answer, or the answer cannot be recovered reliably. If a section does not apply, it is marked as not applicable. Before the final profile is generated, you get a review step to correct the draft and confirm unresolved claims.
 
 ### Supported project shapes
 
@@ -235,7 +235,7 @@ MIT. See [LICENSE](LICENSE).
 - 你没有真正考虑过的替代方案；
 - 证据不足的成功结论。
 
-如果重要信息无法恢复，档案会明确写成 Unknown。如果某个部分确实不适用于这个项目，会标记为 N/A。最终生成前还会有一次 Review，让你修改草稿并确认未解决的结论。
+如果重要信息在项目材料中缺失，Skill 会先询问你能否补充。只有你表示不知道、拒绝回答，或仍然无法可靠恢复时，它才会标记为 `UNKNOWN`。如果某个部分确实不适用于这个项目，会标记为 N/A。最终生成前还会有一次 Review，让你修改草稿并确认未解决的结论。
 
 ### 支持的项目形态
 

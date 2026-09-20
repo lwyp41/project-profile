@@ -2,6 +2,12 @@
 
 Interview only after discovery and evidence mapping. The agent owns the investigation burden; the user should answer only questions that artifacts and history cannot reliably answer.
 
+## Mandatory interview gate
+
+Before drafting a material field as `UNKNOWN`, check whether a focused user answer could resolve it. If it could, mark the field `CLARIFICATION_REQUIRED` and ask it in the next appropriate interview round. Do not silently downgrade an answerable gap to unknown because it is inconvenient, because the draft is otherwise complete, or because several questions are already pending.
+
+Questions may be deferred to a later small batch to avoid overwhelming the user, but they must be asked before the User Review Gate unless the user explicitly asks to proceed with unresolved labels.
+
 ## Selection rule
 
 Rank candidate questions by:
