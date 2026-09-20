@@ -1,139 +1,160 @@
 # project-profile
 
-> Turn a completed project into an evidence-backed `PROJECT_PROFILE.md` that explains what it was, why it existed, how it worked, what is known about its results, and what remains uncertain.
+> Turn an old project into a clear, honest project story.
+
+`project-profile` is an Agent Skill for reconstructing a completed project from the materials that still exist: source code, documents, prompts, notebooks, examples, generated artifacts, and Git history. It produces a reviewable `PROJECT_PROFILE.md` for portfolios, handoffs, project retrospectives, and AI product documentation.
 
 [![Agent Skill](https://img.shields.io/badge/format-SKILL.md-6f42c1)](https://github.com/lwyp41/project-profile/blob/main/SKILL.md)
-[![Version](https://img.shields.io/github/v/release/lwyp41/project-profile?display_name=tag)](https://github.com/lwyp41/project-profile/releases)
+[![Latest release](https://img.shields.io/github/v/release/lwyp41/project-profile?display_name=tag)](https://github.com/lwyp41/project-profile/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## English
 
-### Why this exists
+### The problem
 
-Important project knowledge is often scattered across code, prompts, notebooks, documents, commit history, generated artifacts, and memory. `project-profile` helps an AI agent reconstruct that knowledge into a coherent, reviewable profile without turning guesses into facts.
+You finish a project, then months later need to explain it:
 
-It is especially useful for:
+- What problem did it solve?
+- Who was it for?
+- What did you actually build?
+- Why was it designed this way?
+- What evidence supports the results?
+- What do you no longer remember?
 
-- portfolio and career documentation;
-- AI PM, AI Operations, and AI Strategy work;
-- handing completed projects to a new team or agent;
-- recovering context from lightweight or incomplete repositories;
-- documenting skills, prompt systems, agents, libraries, research, and data projects.
+The answers are usually spread across a repository and a few memories. `project-profile` helps an agent investigate those materials and turn them into one coherent project profile.
 
-### What makes it different
+### Use it when
 
-`project-profile` is evidence-first. It investigates available artifacts before asking questions, records provenance for material claims, separates verified facts from bounded inferences, and keeps unresolved knowledge visible.
+Use this Skill when you have a completed or abandoned project and want to:
 
-The workflow is:
+- turn a codebase into a portfolio case study;
+- reconstruct a project before a job interview or review;
+- hand a project to another person or Agent;
+- document an AI agent, prompt system, Skill, library, data project, or research project;
+- make sense of a small, partial, or poorly documented repository.
 
-```text
-Discover → Classify → Select Analysis Mode → Map Evidence
-→ Extract Knowledge → Detect Gaps → Interview → Synthesize
-→ Validate → User Review Gate → Generate
-```
+It can work with more than traditional software repositories. The project may be a folder of prompts, an Agent Skill, a notebook, a research bundle, a documentation site, or a sparse artifact.
 
-It explicitly distinguishes:
+### Try it
 
-- `VERIFIED` — directly supported by evidence;
-- `INFERRED` — a bounded interpretation of observed evidence;
-- `CLARIFICATION_REQUIRED` — important and answerable by the user;
-- `UNKNOWN` — relevant but not recoverable;
-- `NOT_APPLICABLE` — genuinely irrelevant to the project;
-- `CONFLICTING` — credible sources disagree.
-
-### Supported project types
-
-The skill adapts its analysis to the project instead of forcing every project into a traditional software template:
-
-- software repositories and libraries;
-- AI agents and prompt systems;
-- `AGENT_SKILL` projects;
-- data and research projects;
-- documentation projects;
-- lightweight repositories and sparse artifacts.
-
-For AI-related projects it can cover Why AI, AI capability, AI versus traditional approaches, model/LLM strategy, prompt/agent/RAG design, human-in-the-loop controls, evaluation, reliability, cost, risk, and product value when evidence exists.
-
-For skills and documentation it focuses on Purpose, Trigger Conditions, Workflow, Instructions, Decision Logic, References, Examples, Expected Outputs, and Failure Modes.
-
-### Output
-
-The canonical output is:
+Install the Skill, point your agent at a project, and say:
 
 ```text
-PROJECT_PROFILE.md
+Use project-profile to reconstruct this completed project.
+Inspect the files and Git history first. Then ask me only the questions
+that cannot be answered reliably from the evidence. Produce a PROJECT_PROFILE.md.
 ```
 
-It can include:
+Or, if you want a portfolio-oriented result:
 
-- project background and motivation;
+```text
+Use project-profile to turn this project into an evidence-backed portfolio profile.
+Emphasize the problem, my contribution, important design decisions, trade-offs,
+results, limitations, and career-relevant signals. Do not invent metrics.
+```
+
+### What you get
+
+The main output is `PROJECT_PROFILE.md`, covering the parts that apply to the project:
+
+- background and motivation;
 - goals, users, and usage scenarios;
-- capabilities and technical stack;
-- architecture, data flow, modules, and interfaces;
-- technical or methodological challenges;
-- design decisions and trade-offs;
-- metrics and outcomes, only when supported;
+- capabilities and technical or research approach;
+- architecture, data flow, modules, or operating model;
+- key challenges, decisions, and trade-offs;
+- metrics and outcomes when they are actually supported;
 - limitations, risks, and future work;
-- objective Evidence Coverage;
-- a claim-level evidence ledger;
-- Career-Relevant Signals.
+- evidence coverage and a claim-level evidence ledger;
+- career-relevant signals.
 
-Markdown is the source of truth. A DOCX may be generated as an optional presentation derivative.
+For AI and agent projects, it can also document the AI capability, the reason to use AI, model or LLM choices, prompts, tools, retrieval, human review, evaluation, reliability, cost, and risks—when those details are relevant and supported by evidence.
 
-### Quick start
+For a Skill or documentation project, it focuses on what the Skill is for, when it should trigger, how its workflow works, what decisions it makes, what references and examples it uses, what output it should produce, and how it can fail.
 
-Clone the repository:
+### What it will not do
+
+It will not make up:
+
+- performance numbers or business impact;
+- user counts, adoption, or revenue;
+- a decision rationale you never documented;
+- alternatives you never considered;
+- success claims that the available evidence cannot support.
+
+If an important answer cannot be recovered, the profile says so. If a section does not apply, it marks it as not applicable. Before the final profile is generated, you get a review step to correct the draft and confirm unresolved claims.
+
+### Supported project shapes
+
+The Skill adapts to the material it finds. Examples include:
+
+```text
+software repository     AI agent or prompt system
+Agent Skill             library or package
+data project            research project
+documentation project   lightweight or sparse artifact
+```
+
+The output is not a score for the project. It is a transparent reconstruction of what can and cannot be established.
+
+### Install
+
+Clone this repository:
 
 ```bash
 git clone https://github.com/lwyp41/project-profile.git
 ```
 
-Install the `project-profile` directory into the skills directory used by your agent. For Codex, the typical global location is:
+Copy the `project-profile` folder into the skills directory used by your agent. For Codex, the typical global location is:
 
 ```text
 ~/.codex/skills/project-profile
 ```
 
-Then ask your agent something like:
+For other agents, use their equivalent `skills/` directory. The Skill follows the portable `SKILL.md` format and does not require a runtime dependency.
+
+### How it works
+
+The Skill follows a simple sequence:
 
 ```text
-Use the project-profile skill to reverse-engineer this completed project.
-Inspect the available artifacts first, build an evidence map, ask only
-high-value clarification questions, and produce PROJECT_PROFILE.md.
+inspect → classify → map evidence → identify gaps
+→ ask focused questions → draft → validate → review → generate
 ```
 
-The format is intentionally portable. Any agent that supports the `SKILL.md` convention can use the same skill directory, although installation paths and invocation syntax vary by agent.
+Every important claim is labelled as one of:
 
-### Evidence discipline
+- `VERIFIED`: directly supported by a project artifact or user statement;
+- `INFERRED`: a reasoned interpretation, clearly labelled as such;
+- `CLARIFICATION_REQUIRED`: important and worth asking the user;
+- `UNKNOWN`: relevant but not recoverable;
+- `NOT_APPLICABLE`: not relevant to this project;
+- `CONFLICTING`: credible sources disagree.
 
-The skill does not invent metrics, business impact, user counts, decision rationale, alternatives, adoption, or outcomes. It records sources as `repository`, `documentation`, `git_history`, `user`, `inference`, or `external_reference` and makes conflicts visible.
+This is the evidence-first part of the Skill: not a special feature that makes it different from all other Skills, but the rule that keeps a project profile from becoming polished fiction.
 
-The final generation step includes a Project Profile Review Gate so the user can confirm, correct, or explicitly mark claims as `UNKNOWN` or `NOT_APPLICABLE`.
-
-### Repository map
+### Project structure
 
 ```text
 project-profile/
-├─ SKILL.md                         # agent instructions
-├─ references/                      # schema, evidence, interview, and extraction guidance
-├─ templates/PROJECT_PROFILE.md     # canonical output template
-├─ examples/                        # illustrative example
-├─ tests/                           # release validation contract
+├─ SKILL.md
+├─ references/
+│  ├─ profile-schema.md
+│  ├─ evidence-policy.md
+│  ├─ interview-protocol.md
+│  ├─ architecture-analysis.md
+│  └─ extraction-patterns.md
+├─ templates/PROJECT_PROFILE.md
+├─ examples/
+├─ tests/
 ├─ CHANGELOG.md
 └─ LICENSE
 ```
 
 ### Contributing
 
-Issues and pull requests are welcome. Good contributions include:
+Issues and pull requests are welcome. Useful contributions include anonymized fixtures, clearer project-type guidance, compatibility notes for other agents, and evaluation cases that catch unsupported claims.
 
-- anonymized project fixtures;
-- clearer extraction patterns for new project types;
-- improved evidence and uncertainty handling;
-- evaluation cases that catch unsupported claims;
-- compatibility notes for additional SKILL.md-aware agents.
-
-Please keep examples free of secrets and private project data. Changes that alter the output contract should update the schema, template, example, and changelog together.
+Please do not submit secrets or private project data. If a change affects the profile output, update the schema, template, example, and changelog together.
 
 ### License
 
@@ -143,79 +164,91 @@ MIT. See [LICENSE](LICENSE).
 
 ## 中文
 
-### 这个 Skill 解决什么问题
+### 它解决什么问题
 
-重要的项目知识通常散落在代码、Prompt、Notebook、文档、提交历史、生成物和个人记忆中。`project-profile` 帮助 Agent 把这些信息还原成一份结构化、可审阅的项目档案，同时避免把猜测写成事实。
+一个项目做完几个月以后，你可能需要重新回答：
 
-它尤其适合：
+- 它解决了什么问题？
+- 给谁使用？
+- 我到底做了什么？
+- 为什么这样设计？
+- 哪些结果有证据支持？
+- 哪些内容我已经记不清了？
 
-- 整理作品集和职业经历；
-- AI PM、AI Operations、AI Strategy 项目复盘；
-- 将已完成项目交接给新团队或新 Agent；
-- 从轻量仓库或不完整仓库中恢复项目上下文；
-- 记录 Skill、Prompt System、AI Agent、Library、Research 和 Data 项目。
+这些答案通常散落在代码、文档、Prompt、Notebook、示例、生成物、Git 历史和个人记忆中。`project-profile` 帮助 Agent 调查这些材料，整理出一份完整、可复核的项目档案。
 
-### 核心特点
+### 什么时候使用
 
-这是一个 evidence-first（证据优先）的 Skill。它会先调查已有材料，再提出问题；为重要结论保留来源；区分已验证事实与有边界的推断；并明确保留无法恢复的信息。
+当你有一个已经完成、暂停或废弃的项目，并且希望：
 
-工作流为：
+- 把代码仓库整理成作品集案例；
+- 在面试或项目复盘前恢复项目上下文；
+- 把项目交接给其他人或其他 Agent；
+- 记录 AI Agent、Prompt System、Skill、Library、Data 或 Research 项目；
+- 看懂一个小型、残缺或文档很少的项目。
 
-```text
-Discover → Classify → Select Analysis Mode → Map Evidence
-→ Extract Knowledge → Detect Gaps → Interview → Synthesize
-→ Validate → User Review Gate → Generate
-```
+它不只适用于传统软件仓库。项目也可以是一组 Prompt、一个 Agent Skill、一个 Notebook、一个研究资料包、一个文档站点，或者只有少量文件的项目产物。
 
-它明确区分：
+### 试试看
 
-- `VERIFIED`：有直接证据支持；
-- `INFERRED`：基于观察证据的有边界推断；
-- `CLARIFICATION_REQUIRED`：重要且可以向用户确认；
-- `UNKNOWN`：相关，但现有材料无法恢复；
-- `NOT_APPLICABLE`：这个概念确实不适用于当前项目；
-- `CONFLICTING`：可信来源之间存在冲突。
-
-### 支持的项目类型
-
-它不会强迫所有项目套用传统软件项目模板，而是根据项目类型调整分析方式：
-
-- 软件仓库和 Library；
-- AI Agent 和 Prompt System；
-- `AGENT_SKILL` 项目；
-- Data Project 和 Research Project；
-- Documentation Project；
-- 轻量仓库和 Sparse Artifact。
-
-对于 AI 项目，在证据允许的情况下，它可以分析 Why AI、AI capability、AI 与传统方案的差异、模型/LLM 策略、Prompt/Agent/RAG 设计、人机协作、评估、可靠性、成本、风险和产品价值。
-
-对于 Skill 和 Documentation 项目，它重点分析 Purpose、Trigger Conditions、Workflow、Instructions、Decision Logic、References、Examples、Expected Outputs 和 Failure Modes。
-
-### 输出内容
-
-标准输出是：
+安装 Skill 后，把 Agent 指向你的项目，然后说：
 
 ```text
-PROJECT_PROFILE.md
+请使用 project-profile 还原这个已经完成的项目。
+先检查文件和 Git 历史，只询问那些无法从现有证据可靠回答的问题，
+最后生成 PROJECT_PROFILE.md。
 ```
 
-内容可以包括：
+如果你想生成偏作品集的版本，可以说：
+
+```text
+请使用 project-profile 把这个项目整理成一份有证据支持的作品集档案。
+重点说明项目问题、我的贡献、关键设计决策、取舍、结果、限制和职业相关信号。
+不要编造 metrics。
+```
+
+### 你会得到什么
+
+主要输出是 `PROJECT_PROFILE.md`，会根据项目实际情况覆盖：
 
 - 项目背景和动机；
-- 产品目标、用户和使用场景；
-- 核心能力和技术栈；
-- 系统架构、数据流、模块和接口；
-- 技术或方法难点；
-- 关键设计决策和 Trade-offs；
-- 有证据支持的指标和项目成果；
+- 目标、用户和使用场景；
+- 核心能力以及技术或研究方法；
+- 系统架构、数据流、模块或运行方式；
+- 关键难点、设计决策和 Trade-offs；
+- 有真实证据支持的指标和成果；
 - 限制、风险和未来工作；
-- 客观的 Evidence Coverage；
-- 逐条 Claim-level Evidence Ledger；
+- Evidence Coverage 和逐条证据记录；
 - Career-Relevant Signals。
 
-Markdown 是唯一的 source of truth。可以额外生成 DOCX，但 DOCX 只是展示层衍生物。
+对于 AI 和 Agent 项目，如果材料中有相关信息，它还可以整理 AI 能力、为什么使用 AI、模型或 LLM 选择、Prompt、工具、检索、人机协作、评估、可靠性、成本和风险。
 
-### 快速开始
+对于 Skill 或 Documentation 项目，它重点说明这个 Skill 是做什么的、什么时候触发、如何工作、如何做决策、使用哪些参考资料和示例、应该输出什么，以及可能如何失败。
+
+### 它不会做什么
+
+它不会编造：
+
+- 性能数字或商业影响；
+- 用户数量、采用情况或收入；
+- 你没有记录过的决策理由；
+- 你没有真正考虑过的替代方案；
+- 证据不足的成功结论。
+
+如果重要信息无法恢复，档案会明确写成 Unknown。如果某个部分确实不适用于这个项目，会标记为 N/A。最终生成前还会有一次 Review，让你修改草稿并确认未解决的结论。
+
+### 支持的项目形态
+
+```text
+软件仓库                AI Agent 或 Prompt System
+Agent Skill             Library 或 Package
+Data Project            Research Project
+Documentation Project  轻量仓库或 Sparse Artifact
+```
+
+它输出的不是项目质量评分，而是对“哪些内容可以确定、哪些内容不能确定”的透明还原。
+
+### 安装
 
 克隆仓库：
 
@@ -223,52 +256,55 @@ Markdown 是唯一的 source of truth。可以额外生成 DOCX，但 DOCX 只�
 git clone https://github.com/lwyp41/project-profile.git
 ```
 
-将 `project-profile` 目录安装到你的 Agent 使用的技能目录中。Codex 的典型全局路径是：
+把 `project-profile` 文件夹复制到你的 Agent 使用的 skills 目录。Codex 的典型全局路径是：
 
 ```text
 ~/.codex/skills/project-profile
 ```
 
-然后向 Agent 提出类似请求：
+其他 Agent 使用它们对应的 `skills/` 目录即可。这个 Skill 遵循通用的 `SKILL.md` 格式，不需要额外运行时依赖。
+
+### 它如何工作
 
 ```text
-请使用 project-profile Skill 逆向分析这个已经完成的项目。
-先调查现有材料，建立 evidence map，只提出高价值澄清问题，
-最后生成 PROJECT_PROFILE.md。
+检查材料 → 判断项目类型 → 建立证据图 → 找出缺口
+→ 提出少量问题 → 起草 → 验证 → Review → 生成
 ```
 
-这个格式有意保持跨 Agent 可移植。只要 Agent 支持 `SKILL.md` 约定，就可以使用同一个 Skill 目录；具体安装路径和调用语法可能不同。
+每个重要结论会标记为：
 
-### 证据纪律
+- `VERIFIED`：有项目材料或用户明确回答直接支持；
+- `INFERRED`：基于观察结果的推断，并会明确标注；
+- `CLARIFICATION_REQUIRED`：重要且值得向用户确认；
+- `UNKNOWN`：相关，但现有材料无法恢复；
+- `NOT_APPLICABLE`：与当前项目无关；
+- `CONFLICTING`：可信来源之间存在冲突。
 
-这个 Skill 不会编造 metrics、business impact、user counts、decision rationale、alternatives、adoption 或 outcomes。它会区分 `repository`、`documentation`、`git_history`、`user`、`inference` 和 `external_reference` 等来源，并把冲突显式保留下来。
+这里的 evidence-first（证据优先）不是宣称这个 Skill 拥有其他 Skill 没有的神奇能力，而是一条防止项目档案变成“写得很像真的故事”的工作规则。
 
-最终生成前会经过 Project Profile Review Gate，用户可以确认、修改，或明确把结论标记为 `UNKNOWN` 或 `NOT_APPLICABLE`。
-
-### 目录结构
+### 项目结构
 
 ```text
 project-profile/
-├─ SKILL.md                         # Agent 指令
-├─ references/                      # Schema、证据、访谈和提取规则
-├─ templates/PROJECT_PROFILE.md     # 标准输出模板
-├─ examples/                        # 示例
-├─ tests/                           # 发布验证约定
+├─ SKILL.md
+├─ references/
+│  ├─ profile-schema.md
+│  ├─ evidence-policy.md
+│  ├─ interview-protocol.md
+│  ├─ architecture-analysis.md
+│  └─ extraction-patterns.md
+├─ templates/PROJECT_PROFILE.md
+├─ examples/
+├─ tests/
 ├─ CHANGELOG.md
 └─ LICENSE
 ```
 
 ### 参与贡献
 
-欢迎提交 Issue 和 Pull Request。适合的贡献包括：
+欢迎提交 Issue 和 Pull Request。适合的贡献包括脱敏后的项目样例、新项目类型的说明、其他 Agent 的兼容性说明，以及能发现无依据结论的评估案例。
 
-- 脱敏后的项目样例；
-- 新项目类型的提取模式；
-- 更清晰的证据和不确定性处理；
-- 能发现无依据结论的评估案例；
-- 其他支持 `SKILL.md` 的 Agent 兼容性说明。
-
-请不要提交密钥或私人项目数据。如果修改了输出契约，请同时更新 schema、template、example 和 changelog。
+请不要提交密钥或私人项目数据。如果修改影响了输出格式，请同步更新 schema、template、example 和 changelog。
 
 ### 许可证
 

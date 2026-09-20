@@ -4,7 +4,7 @@ All notable changes to `project-profile` are recorded here.
 
 ## [Unreleased]
 
-- Improve the bilingual README with clearer positioning, quick-start examples, project-type guidance, and contribution instructions.
+- Rewrite the bilingual README around concrete user problems, quick-start examples, supported project shapes, and practical limitations.
 
 ## [0.1.0] - 2026-09-20
 
