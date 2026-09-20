@@ -37,20 +37,22 @@ It can work with more than traditional software repositories. The project may be
 
 ### Try it
 
-Install the Skill, point your agent at a project, and say:
+Install the Skill, point your agent at a project, and use one short request:
 
 ```text
-Use project-profile to reconstruct this completed project.
-Inspect the files and Git history first. Then ask me only the questions
-that cannot be answered reliably from the evidence. Produce a PROJECT_PROFILE.md.
+Use project-profile to analyze this project.
 ```
 
-Or, if you want a portfolio-oriented result:
+That is enough. The Skill will inspect the project first. If it finds an important question that cannot be answered from the materials but you may be able to answer, it will start a focused Interview. You do not need to describe the workflow yourself.
+
+You can also be more specific when you want a particular result:
 
 ```text
-Use project-profile to turn this project into an evidence-backed portfolio profile.
-Emphasize the problem, my contribution, important design decisions, trade-offs,
-results, limitations, and career-relevant signals. Do not invent metrics.
+Turn this project into a portfolio profile with project-profile.
+```
+
+```text
+This is an old, incomplete repository. Use project-profile to recover what it was for.
 ```
 
 ### What you get
@@ -191,20 +193,22 @@ MIT. See [LICENSE](LICENSE).
 
 ### 试试看
 
-安装 Skill 后，把 Agent 指向你的项目，然后说：
+安装 Skill 后，把 Agent 指向你的项目，只需要说一句：
 
 ```text
-请使用 project-profile 还原这个已经完成的项目。
-先检查文件和 Git 历史，只询问那些无法从现有证据可靠回答的问题，
-最后生成 PROJECT_PROFILE.md。
+请使用 project-profile 分析这个项目。
 ```
 
-如果你想生成偏作品集的版本，可以说：
+这样就够了。Skill 会先自动检查项目。如果发现某个重要问题无法从现有材料回答、但你可能知道答案，它会进入一次聚焦的 Interview。你不需要自己描述检查文件、建立证据图或访谈的流程。
+
+如果你想指定输出方向，也可以说：
 
 ```text
-请使用 project-profile 把这个项目整理成一份有证据支持的作品集档案。
-重点说明项目问题、我的贡献、关键设计决策、取舍、结果、限制和职业相关信号。
-不要编造 metrics。
+请使用 project-profile 把这个项目整理成作品集档案。
+```
+
+```text
+这是一个以前留下的不完整仓库，请使用 project-profile 帮我还原它是做什么的。
 ```
 
 ### 你会得到什么
