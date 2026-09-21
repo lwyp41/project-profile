@@ -4,6 +4,10 @@ All notable changes to `project-profile` are recorded here.
 
 ## [Unreleased]
 
+- Require an explicit `balanced`, `resume`, `technical`, or first-class `custom` profile mode before discovery; do not silently default.
+- Require a material-gap scan, record an explicit no-interview reason when applicable, and hold final rendering behind the user-visible Review gate unless unattended/no-review was requested in advance.
+- Refresh the bilingual README with the four-mode startup flow, Custom configuration guidance, and the Interview/Review gates.
+
 ## [0.3.0] - 2026-09-21
 
 - Introduce Project Profile v2 as a configurable, evidence-backed project reconstruction system.
