@@ -4,14 +4,22 @@ All notable changes to `project-profile` are recorded here.
 
 ## [Unreleased]
 
-- Add contributor guidance, pull-request checks, and CI for a web-review/local-execution workflow without shipping repository-maintenance Agent instructions in the installable Skill.
-- Make profiles native-language by default: select the user's language, compose directly in it, and localize headings and interview questions instead of using a pivot-language draft.
-- Replace the rigid all-sections template with an adaptive narrative body plus an auditable evidence appendix.
-- Add a downstream fact pack that preserves reusable, source-backed contribution evidence for later resume, portfolio, and interview Skills without prematurely turning it into resume copy.
-- Add direct Skills CLI installation commands and bilingual input/output examples to the README.
-- Simplify the English and Chinese README quick-start instructions and explain that the Skill owns the investigation and Interview workflow.
-- Require material, user-resolvable evidence gaps to pass through `CLARIFICATION_REQUIRED` and the Progressive User Interview before they can become `UNKNOWN`.
-- Clarify the bilingual README around concrete user problems, quick-start examples, supported project shapes, and practical limitations.
+## [0.3.0] - 2026-09-21
+
+- Introduce Project Profile v2 as a configurable, evidence-backed project reconstruction system.
+- Add `resume`, `technical`, and `balanced` presets with per-module investigation depth controls: `off`, `brief`, `standard`, and `deep`.
+- Add a 15-module knowledge registry covering project context, users, requirements, workflow, architecture, AI/agent design, data, decisions, ownership, QA, outcomes, evolution, and risks.
+- Reconstruct a Canonical Fact Model before prose, including claim type, evidence status, source locator, ownership, metric context, rationale, caveat, conflict, and review state.
+- Add procedural module guidance for source inspection, interview triggers, false-inference prevention, and depth-specific investigation behavior.
+- Add explicit Resume signal coverage for Ownership, Scale, Complexity, Decision, Impact, and Iteration.
+- Require material, user-resolvable evidence gaps to pass through `CLARIFICATION_REQUIRED` before becoming `UNKNOWN`.
+- Make profiles native-language by default and localize headings and interview questions instead of relying on a pivot-language draft.
+- Replace the rigid all-sections output with an adaptive narrative, neutral downstream fact pack, and auditable evidence appendix.
+- Add synthetic controlled Golden evaluations for Resume and Technical presets without publishing real-project fixtures or personal usage data.
+- Add static validation for canonical ledgers, localized headers, evidence counts, testimony references, configuration values, and legacy-schema regressions.
+- Add CI coverage for unit tests, bilingual examples, controlled synthetic profiles, and configuration validation.
+- Add contributor guidance and a repository workflow for implementation, review, and regression checks.
+- Keep resume bullets, promotional framing, and unsupported impact claims outside the Skill's responsibility.
 
 ## [0.1.0] - 2026-09-20
 
