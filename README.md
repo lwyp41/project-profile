@@ -12,7 +12,7 @@ It produces a reviewable `PROJECT_PROFILE.md` for portfolio work, interview prep
 
 > **v2 reconstructs facts first, then writes the story.**
 
-It supports Resume / Technical / Balanced presets, 15 knowledge modules, configurable investigation depth, claim-level provenance, focused interviews, native-language output, and synthetic regression evals.
+Before discovery, it requires an explicit startup choice: Balanced, Resume, Technical, or Custom. Custom is a first-class mode for choosing module emphasis and investigation depth. It also supports 15 knowledge modules, claim-level provenance, focused interviews, native-language output, and synthetic regression evals.
 
 **把散落在代码、文档和记忆里的项目，还原成一份可信、完整、可复用的项目档案。**
 
@@ -22,7 +22,7 @@ It supports Resume / Technical / Balanced presets, 15 knowledge modules, configu
 
 > **v2 先重建事实，再写项目故事。**
 
-它支持 Resume / Technical / Balanced 预设、15 个知识模块、可配置调查深度、逐条证据定位、聚焦访谈、原生语言输出，以及 synthetic regression eval。
+开始调查前必须明确选择 Balanced、Resume、Technical 或 Custom；Custom 可以一等地指定模块重点和调查深度。除此之外，它支持 15 个知识模块、可配置调查深度、逐条证据定位、聚焦访谈、原生语言输出，以及 synthetic regression eval。
 
 ---
 
@@ -94,10 +94,12 @@ The goal is not to score a project or turn it into marketing copy. The goal is t
 
 ### English
 
-Default:
+Choose a profile mode before the Skill inspects the project. If you do not specify one, the Skill must ask; it does not silently default.
+
+Balanced:
 
 ```text
-Use project-profile to analyze this project.
+Use project-profile in Balanced mode to analyze this project.
 ```
 
 Career-oriented:
@@ -114,21 +116,30 @@ Use project-profile with the technical preset.
 Focus on architecture, AI/agent design, data boundaries, validation, trade-offs, and failure modes.
 ```
 
+Custom:
+
+```text
+Use project-profile in Custom mode.
+Investigate decisions and ownership deeply, keep technical architecture standard, and disable outcomes-metrics.
+```
+
 Old or incomplete project:
 
 ```text
 This is an old project with incomplete documentation.
-Recover what it was for, how it evolved, and what can still be verified.
+Use project-profile in Balanced mode to recover what it was for, how it evolved, and what can still be verified.
 ```
 
-The Skill investigates first. If an important fact cannot be recovered but you may know the answer, it starts a focused interview instead of silently guessing.
+After the mode is selected, the Skill investigates the project and runs a material-gap scan. It asks focused interview questions for material gaps you may be able to answer, or records why no interview was needed. Review is a hard user-visible gate: final rendering waits for your approval unless you explicitly requested an unattended/no-review run in advance.
 
 ### 中文
 
-默认分析：
+开始调查前必须选择一种模式；如果没有指定，Skill 会先询问，不会自动默认为 Balanced。
+
+Balanced：
 
 ```text
-请使用 project-profile 分析这个项目。
+请使用 project-profile 的 Balanced 模式分析这个项目。
 ```
 
 偏简历与职业证据：
@@ -152,7 +163,7 @@ The Skill investigates first. If an important fact cannot be recovered but you m
 请帮我还原它原本解决什么问题、如何演进，以及现在还能确认哪些事实。
 ```
 
-Skill 会先调查；如果某个事实很重要、仓库里找不到、但你可能知道，它会进入聚焦访谈，而不是自己补答案。
+Skill 会先调查并执行 material-gap scan：对重要且你可能知道的缺口进行聚焦访谈；如果没有这类缺口，会明确记录跳过原因。最终 Render 前有一个必须经过用户确认的 Review 闸门，除非你事先明确要求 unattended/no-review 运行。
 
 ---
 
@@ -231,7 +242,7 @@ Skill 可能从仓库中恢复：
 最终档案会保留用户明确确认的事实，同时没有证据的 Impact 仍然保持未知。
 
 > [!NOTE]
-> The example above is fictional. The public regression evals also use synthetic fixtures only.  
+> The example above is fictional. The public regression evals also use synthetic fixtures only.
 > 上面的示例是虚构的；仓库里的公开 regression eval 也只使用 synthetic fixture。
 
 ---
@@ -240,28 +251,24 @@ Skill 可能从仓库中恢复：
 
 ```mermaid
 flowchart TB
-    Input[Project files / 项目材料] --> Intent{Profile purpose / 档案用途?}
+    Start[User selects a mode / 用户选择模式] --> Intent{Balanced / Resume / Technical / Custom}
 
-    Intent --> Balanced[Balanced]
-    Intent --> Resume[Resume]
-    Intent --> Technical[Technical]
-    Intent --> Custom[Custom depths / 自定义深度]
+    Intent --> Configure[Configure modules and depth / 配置模块与深度]
 
-    Balanced --> Inspect
-    Resume --> Inspect
-    Technical --> Inspect
-    Custom --> Inspect
+    Configure --> Inspect
 
     Inspect[Inspect artifacts + Git / 检查材料与 Git]
       --> Classify[Classify project shape / 判断项目类型]
     Classify --> Coverage[Module coverage map / 模块覆盖图]
     Coverage --> Facts[Canonical facts + provenance / 事实与证据定位]
     Facts --> Reconstruct[Decisions + evolution + ownership + outcomes]
-    Reconstruct --> Gaps{Material gaps / 重要缺口?}
-    Gaps -->|User may know / 用户可能知道| Interview[Focused interview / 聚焦访谈]
-    Interview --> Facts
-    Gaps -->|No / unresolved| Review[Review evidence boundaries / 复核证据边界]
-    Review --> Render[Render PROJECT_PROFILE.md]
+    Reconstruct --> GapScan[Mandatory material-gap scan / 强制 material-gap scan]
+    GapScan -->|User may know / 用户可能知道| Interview[Focused interview / 聚焦访谈]
+    Interview --> Validate[Validate / 验证]
+    GapScan -->|No eligible gap / 无可访谈缺口| Skip[Record skip reason / 记录跳过原因]
+    Skip --> Validate
+    Validate --> Review[Review gate: wait for approval / Review 闸门：等待确认]
+    Review -->|Approved / 已批准| Render[Render PROJECT_PROFILE.md]
     Render --> Output[Narrative + fact pack + evidence appendix]
 ```
 
@@ -285,7 +292,7 @@ A `deep` module should inspect more sources, recover more history, compare alter
 
 ## What you get / 最终会得到什么
 
-> **Project Profile is the factual layer; downstream Skills decide how to present it.**  
+> **Project Profile is the factual layer; downstream Skills decide how to present it.**
 > **Project Profile 负责把事实恢复完整，后续 Skill 再决定怎么写成简历、作品集或技术总结。**
 
 ### English
@@ -310,15 +317,16 @@ The downstream fact pack is intentionally **not** a set of ready-made resume bul
 
 ---
 
-## Presets and depth / 预设与调查深度
+## Profile modes and depth / 档案模式与调查深度
 
 ### English
 
-| Preset | Best for | Emphasis |
+| Mode | Best for | Emphasis |
 | --- | --- | --- |
 | `balanced` | General project understanding | Broad, even reconstruction across applicable modules |
 | `resume` | Resume, interview, career evidence | Ownership, Scale, Complexity, Decision, Impact, Iteration |
 | `technical` | Engineering or AI system documentation | Architecture, Constraints, AI/Agent Design, Information Boundary, Validation, Risks |
+| `custom` | User-defined priorities | Choose which modules to emphasize, reduce, or disable, and at what depth |
 
 Every module can use one of four investigation depths:
 
@@ -329,15 +337,16 @@ Every module can use one of four investigation depths:
 | `standard` | Inspect primary artifacts plus relevant docs, examples, and tests |
 | `deep` | Investigate history, alternatives, conflicts, outcomes, and user-answerable gaps |
 
-Presets do not change the truth rules. They change investigation priority and final emphasis.
+Modes do not change the truth rules. Balanced, Resume, and Technical provide investigation priorities; Custom preserves the user's explicit module/depth choices rather than becoming a Balanced alias.
 
 ### 中文
 
-| 预设 | 适合场景 | 重点 |
+| 模式 | 适合场景 | 重点 |
 | --- | --- | --- |
 | `balanced` | 通用项目理解 | 对适用模块做均衡调查 |
 | `resume` | 简历、面试、职业证据整理 | Ownership、Scale、Complexity、Decision、Impact、Iteration |
 | `technical` | 技术总结、系统理解、交接 | Architecture、Constraints、AI/Agent Design、Information Boundary、Validation、Risks |
+| `custom` | 用户自定义调查重点 | 自己选择要加强、降低或关闭的模块，以及每个模块的深度 |
 
 每个模块可以设置四档调查深度：
 
@@ -348,7 +357,7 @@ Presets do not change the truth rules. They change investigation priority and fi
 | `standard` | 查主要实现、文档、示例和测试 |
 | `deep` | 进一步调查历史、替代方案、冲突、结果和用户可回答缺口 |
 
-预设不会改变事实标准，只会改变调查优先级和最终表达重点。
+模式不会改变事实标准。Balanced、Resume 和 Technical 提供调查优先级；Custom 会保留用户明确的模块与深度选择，不会被改写成 Balanced。
 
 Example / 示例：
 
@@ -391,7 +400,7 @@ See [templates/profile-config.yaml](templates/profile-config.yaml) and [referenc
 | Evolution History | 初始状态 → 首版 → 问题 → 重构 / 迁移 → 当前状态 |
 | Risks & Limitations | 已知失败、未解决问题、证据边界和残余风险 |
 
-Not every project needs every module. Applicability is decided from evidence rather than forced by a fixed template.  
+Not every project needs every module. Applicability is decided from evidence rather than forced by a fixed template.
 不是所有项目都需要所有模块；适用性由项目证据决定，而不是强行套固定模板。
 
 ---
@@ -448,7 +457,7 @@ Research Project         Documentation Project
 Sparse Artifact
 ```
 
-Project Type is an investigation router, not a rigid output template.  
+Project Type is an investigation router, not a rigid output template.
 Project Type 的作用是帮助 Skill 决定“优先调查什么”，而不是决定“最后必须套什么模板”。
 
 ---
