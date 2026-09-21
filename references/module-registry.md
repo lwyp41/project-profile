@@ -1,6 +1,6 @@
 # Module Registry
 
-Project types recommend modules; user configuration selects their effective depth. Explicit module overrides win over a preset. Unknown module IDs or depths require clarification before investigation.
+Project types recommend modules; the user-selected profile mode determines the preset or Custom baseline, and explicit module overrides select effective depth. Unknown module IDs or depths require clarification before investigation.
 
 | ID | Purpose | Guidance |
 |---|---|---|
@@ -20,9 +20,18 @@ Project types recommend modules; user configuration selects their effective dept
 | `evolution-history` | Initial state, changes, migrations, and current state. | `modules/evolution-history.md` |
 | `risks-limitations` | Failure modes, unresolved issues, risks, and evidence boundaries. | `modules/risks-limitations.md` |
 
-## Presets
+## Profile modes
 
-All applicable modules not listed below use `standard`; explicit user overrides win.
+A profile mode must be selected explicitly before discovery begins.
+
+- `balanced`: general-purpose reconstruction across applicable modules.
+- `resume`: deeper career-evidence reconstruction, especially Ownership, Scale, Complexity, Decision, Impact, and Iteration.
+- `technical`: deeper architecture, constraints, AI/agent design, information boundaries, validation, and risks.
+- `custom`: user-defined module/depth configuration. Custom is first-class and must never be silently rewritten as Balanced.
+
+## Preset depths
+
+For preset modes, all applicable modules not listed below use `standard`; explicit user overrides win.
 
 ```yaml
 resume:
@@ -58,3 +67,5 @@ balanced:
   project-overview: brief
   risks-limitations: brief
 ```
+
+For `custom`, do not apply one of the preset maps first. Use the user's stated module/depth choices as the baseline, fill only unspecified but applicable modules according to explicit user instruction, and clarify when the remaining behavior is ambiguous.
