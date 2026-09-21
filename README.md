@@ -105,14 +105,14 @@ Use project-profile in Balanced mode to analyze this project.
 Career-oriented:
 
 ```text
-Use project-profile with the resume preset.
+Use project-profile with the Resume mode.
 Reconstruct the project facts I would need for a strong project section, but do not write resume bullets.
 ```
 
 Technical:
 
 ```text
-Use project-profile with the technical preset.
+Use project-profile with the Technical mode.
 Focus on architecture, AI/agent design, data boundaries, validation, trade-offs, and failure modes.
 ```
 
@@ -145,15 +145,23 @@ Balanced：
 偏简历与职业证据：
 
 ```text
-请使用 project-profile 的 resume preset。
+请使用 project-profile 的 Resume 模式。
 帮我恢复后续简历需要的项目事实，但不要直接写简历 bullet。
 ```
 
 偏技术：
 
 ```text
-请使用 project-profile 的 technical preset。
+请使用 project-profile 的 Technical 模式。
 重点恢复架构、AI/Agent 设计、信息边界、验证、Trade-off 和失败模式。
+```
+
+Custom：
+
+```text
+请使用 project-profile 的 Custom 模式。
+对 decisions-tradeoffs 和 ownership-contribution 做 deep 调查，
+technical-architecture 保持 standard，关闭 outcomes-metrics。
 ```
 
 旧项目或资料不完整：
@@ -183,7 +191,7 @@ Suppose an old Agent Skill repository contains:
 You ask:
 
 ```text
-Use project-profile with the resume preset.
+Use project-profile with the Resume mode.
 Recover why this Skill exists, the major workflow decisions, how it evolved, what I owned, and which outcomes are actually supported.
 ```
 
@@ -219,7 +227,7 @@ The final profile preserves user-confirmed facts as testimony while keeping unsu
 你可以说：
 
 ```text
-请使用 project-profile 的 resume preset。
+请使用 project-profile 的 Resume 模式。
 帮我恢复这个 Skill 为什么存在、经历过哪些关键工作流变化、我做了什么、哪些结果有真实证据。
 ```
 
