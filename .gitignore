@@ -1,0 +1,19 @@
+# Local secrets and editor state
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.vscode/
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local generated artifacts
+*.log
+.scratch/
+.tmp/
+artifacts/local/

@@ -1,0 +1,6 @@
+# Optional configuration. Natural-language requests can express the same choices.
+purpose: balanced # resume | technical | balanced
+default_depth: standard # off | brief | standard | deep
+modules:
+  # decisions-tradeoffs: deep
+  # outcomes-metrics: off

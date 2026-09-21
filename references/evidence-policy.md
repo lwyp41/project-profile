@@ -49,6 +49,9 @@ Do not bypass this transition because the profile can still be drafted without t
 - “The code suggests” is an inference, not verification.
 - A missing README does not prove there was no goal; a missing test does not prove poor quality.
 - Contradictions are first-class findings. Do not resolve them by choosing the more convenient source without explaining why.
+- Every material v2 fact also records its module and, where applicable, time context, ownership, metric, caveat, conflict, and review state in the Canonical Fact Model.
+- Ownership is not inferred from repository location, commits alone, or possession of the repository. Attribute only directly evidenced or explicitly confirmed scope.
+- A material metric requires value, unit, scope, time window, and source. User testimony can verify a personal observation, but does not make it a general benchmark.
 
 ## Evidence Coverage
 

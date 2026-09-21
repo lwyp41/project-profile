@@ -6,6 +6,8 @@
 
 这是一份用于校验中文表达的虚构示例，不对应真实项目，也不用于证明任何实际成果。
 
+> 配置：`purpose: balanced`；`project-overview: brief`；`product-workflow: standard`；`validation-qa: standard`；`outcomes-metrics: brief`。
+
 ## 它解决的不是“把工单写得更漂亮”
 
 `incident-triage` 的目标是在问题被交给开发前，先把范围和复现信息核实清楚，再输出可继续处理的分诊摘要。这样做的重点不在于自动生成更多文字，而在于把“先验证、后交接”的顺序固定下来。[事实：`SKILL.md` 的目标与工作流]
@@ -33,11 +35,38 @@ Skill 会收集报障信息，检查范围和复现细节，完成分类后再�
 
 | 类别 | 数量 | 说明 |
 |---|---:|---|
-| 已验证 | 4 | 目标、流程、参考资料与示例、拒绝边界 |
-| 推断 | 1 | 流程顺序可能减少过早实施 |
-| 待澄清 | 0 | 这是虚构样例，未发起用户访谈 |
-| 未知 | 3 | 采用情况、耗时变化、失败率 |
-| 不适用 | 1 | 运行时 API 延迟指标 |
-| 存在冲突 | 0 | 未发现冲突来源 |
+| VERIFIED | 1 | 示例台账中的流程主张 |
+| INFERRED | 1 | 流程顺序可能减少过早实施 |
+| CLARIFICATION_REQUIRED | 0 | 这是虚构样例，未发起用户访谈 |
+| UNKNOWN | 1 | 采用与结果证据无法建立 |
+| NOT_APPLICABLE | 1 | 运行时 API 延迟指标 |
+| CONFLICTING | 0 | 未发现冲突来源 |
 
 覆盖度说明证据是否可得，不代表项目质量或实际影响。
+
+### 模块覆盖情况
+
+| 模块 | 适用性 | 深度 | 已检查来源 | 事实编号 | 渲染决定 |
+|---|---|---|---|---|---|
+| project-overview | 适用 | brief | `SKILL.md` | E1 | 已渲染 |
+| product-workflow | 适用 | standard | `SKILL.md`、`references/`、`examples/` | E1–E2 | 已渲染 |
+| outcomes-metrics | 适用 | brief | 示例叙述 | E3 | 仅渲染边界 |
+| technical-architecture | 不适用 | off | 无 | E4 | 已省略 |
+
+### 证据记录
+
+<!-- project-profile-ledger: v2 -->
+
+| ID | 模块 | 结论 / 字段 | 主张类型 | 状态 | 来源类型 | 证据位置 | 时间语境 | 归属 | 指标 | 理由 | 限制 | 冲突 | 审阅状态 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| E1 | product-workflow | Skill 在完成分类和复现检查后输出分诊摘要。 | mechanism | VERIFIED | repository | `SKILL.md` 的目标与工作流 | 示例样本 | 未说明 | 无 | — | 流程直接陈述。 | 无 | controlled-reviewed |
+| E2 | decisions-tradeoffs | 此顺序意在减少未验证就实施的情况。 | design_intent | INFERRED | inference | 有序检查 | 示例样本 | 未说明 | 无 | — | 流程可支持设计意图，不能证明实际效果。 | 无 | controlled-reviewed |
+| E3 | outcomes-metrics | 采用情况和耗时变化。 | observed_outcome | UNKNOWN | repository | 没有指标或用户证词 | 示例样本 | 不适用 | 无 | — | 相关但无法建立。 | 无 | unresolved |
+| E4 | technical-architecture | 运行时 API 延迟目标。 | mechanism | NOT_APPLICABLE | repository | 仅有 Skill 产物 | 示例样本 | 不适用 | 无 | — | 没有运行时 API。 | 无 | controlled-reviewed |
+
+### 审阅记录
+
+- 用户审阅状态：示例样本；无需批准。
+- 已接受的修正：无。
+- 明确的 Unknown / N/A 决定：采用和耗时为 UNKNOWN；API 延迟为 NOT_APPLICABLE。
+- 剩余冲突：无。
