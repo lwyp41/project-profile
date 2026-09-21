@@ -1,0 +1,32 @@
+name: Validate Skill
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run unit tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Validate English example
+        run: python scripts/validate_profile.py examples/example-skill-project-profile.md
+      - name: Validate Chinese example
+        run: python scripts/validate_profile.py examples/example-skill-project-profile.zh-CN.md
+      - name: Validate controlled synthetic Resume Golden profile
+        run: python scripts/validate_profile.py evals/synthetic-agent-skill/resume-profile-v2.md --testimony-fixture evals/synthetic-agent-skill/input/testimony-fixture.md
+      - name: Validate controlled synthetic Technical Golden profile
+        run: python scripts/validate_profile.py evals/synthetic-agent-skill/technical-profile-v2.md --testimony-fixture evals/synthetic-agent-skill/input/testimony-fixture.md
+      - name: Validate configuration template
+        run: python scripts/validate_profile.py --config templates/profile-config.yaml

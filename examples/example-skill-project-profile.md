@@ -6,6 +6,8 @@
 
 This illustrative English profile shows the intended narrative shape and evidence boundary. It is not evidence about a real project.
 
+> Configuration: `purpose: balanced`; `project-overview: brief`; `product-workflow: standard`; `validation-qa: standard`; `outcomes-metrics: brief`.
+
 ## What this project does
 
 `incident-triage` is a Skill that turns an incoming issue report into a structured triage brief. Its stated purpose is to make classification and reproduction checks happen before a report is handed to implementation. [Fact: `SKILL.md`, purpose and workflow sections]
@@ -35,14 +37,27 @@ References define required fields and examples show the expected brief. The inst
 
 | Category | Count | Notes |
 |---|---:|---|
-| Verified | 4 | Purpose, workflow, references/examples, refusal boundaries |
-| Inferred | 1 | Intended reduction of premature implementation |
-| Clarification required | 0 | No user interview for this illustrative fixture |
-| Unknown | 3 | Adoption, time reduction, failure rate |
-| Not applicable | 1 | Runtime API latency target |
-| Conflicting | 0 | No conflicting source identified |
+| VERIFIED | 1 | Workflow claim in the illustrative ledger |
+| INFERRED | 1 | Intended reduction of premature implementation |
+| CLARIFICATION_REQUIRED | 0 | No user interview for this illustrative fixture |
+| UNKNOWN | 1 | Adoption and outcome evidence cannot be established |
+| NOT_APPLICABLE | 1 | Runtime API latency target |
+| CONFLICTING | 0 | No conflicting source identified |
 
 Coverage measures evidence availability, not project quality or impact.
+
+### Module coverage
+
+| Module | Applicability | Depth | Inspected sources | Fact IDs | Render decision |
+|---|---|---|---|---|---|
+| project-overview | applicable | brief | `SKILL.md` | E1 | rendered |
+| product-workflow | applicable | standard | `SKILL.md`, `references/`, `examples/` | E1–E2 | rendered |
+| outcomes-metrics | applicable | brief | fixture narrative | E3 | rendered as boundary only |
+| technical-architecture | not applicable | off | none | E4 | omitted |
+
+### Unknown / N/A / conflicts
+
+Adoption and time reduction are `UNKNOWN`; a runtime API latency target is `NOT_APPLICABLE`; no conflicting source is known. This fixture has no pending `CLARIFICATION_REQUIRED` fact.
 
 ### Career-relevant signals
 
@@ -50,12 +65,14 @@ The artifact demonstrates a structured decision workflow, explicit source/verifi
 
 ### Evidence ledger
 
-| ID | Claim / field | Status | Source kind | Locator | Rationale / gap |
-|---|---|---|---|---|---|
-| E1 | The Skill creates a triage brief after classification and reproduction checks. | VERIFIED | repository | `SKILL.md`, purpose and workflow | Directly stated workflow. |
-| E2 | The order is intended to reduce premature implementation. | INFERRED | inference | Ordered checks in `SKILL.md` | Sequence supports intent, not measured effect. |
-| E3 | Adoption and time reduction. | UNKNOWN | repository | No metric or user statement | Relevant outcome cannot be established. |
-| E4 | Runtime API latency target. | NOT_APPLICABLE | repository | Skill-only artifact | No runtime API is present. |
+<!-- project-profile-ledger: v2 -->
+
+| ID | Module | Claim / field | Claim type | Status | Source kind | Locator | Time context | Ownership | Metric | Rationale | Caveat | Conflict | Review state |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| E1 | product-workflow | The Skill creates a triage brief after classification and reproduction checks. | mechanism | VERIFIED | repository | `SKILL.md`, purpose and workflow | illustrative fixture | unstated | none | — | Directly stated workflow. | 无 | controlled-reviewed |
+| E2 | decisions-tradeoffs | The order is intended to reduce premature implementation. | design_intent | INFERRED | inference | Ordered checks in `SKILL.md` | illustrative fixture | unstated | none | — | Sequence supports intent, not measured effect. | 无 | controlled-reviewed |
+| E3 | outcomes-metrics | Adoption and time reduction. | observed_outcome | UNKNOWN | repository | No metric or user statement | illustrative fixture | N/A | none | — | Relevant outcome cannot be established. | 无 | unresolved |
+| E4 | technical-architecture | Runtime API latency target. | mechanism | NOT_APPLICABLE | repository | Skill-only artifact | illustrative fixture | N/A | none | — | No runtime API is present. | 无 | controlled-reviewed |
 
 ### Review record
 

@@ -4,6 +4,8 @@
 
 `project-profile` is an Agent Skill for reconstructing a completed project from the materials that still exist: source code, documents, prompts, notebooks, examples, generated artifacts, and Git history. It produces a reviewable `PROJECT_PROFILE.md` for portfolios, handoffs, project retrospectives, and AI product documentation.
 
+Version 2 reconstructs a canonical fact model before it renders prose. You can use the `balanced` default, choose the `resume` or `technical` preset, or override an individual module's investigation depth (`off`, `brief`, `standard`, `deep`). Depth changes what the Skill investigates—not only how much it writes.
+
 [![Agent Skill](https://img.shields.io/badge/format-SKILL.md-6f42c1)](https://github.com/lwyp41/project-profile/blob/main/SKILL.md)
 [![Latest release](https://img.shields.io/github/v/release/lwyp41/project-profile?display_name=tag)](https://github.com/lwyp41/project-profile/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -169,21 +171,23 @@ This is the evidence-first part of the Skill: not a special feature that makes i
 project-profile/
 ├─ SKILL.md
 ├─ references/
-│  ├─ profile-schema.md
-│  ├─ evidence-policy.md
-│  ├─ interview-protocol.md
-│  ├─ architecture-analysis.md
-│  └─ extraction-patterns.md
-├─ templates/PROJECT_PROFILE.md
+│  ├─ modules/
+│  ├─ project-types/
+│  └─ evidence, depth, interview, registry, and rendering policies
+├─ templates/
+├─ scripts/
 ├─ examples/
 ├─ tests/
+├─ evals/
+├─ docs/development/
+├─ CONTRIBUTING.md
 ├─ CHANGELOG.md
 └─ LICENSE
 ```
 
 ### Contributing
 
-Issues and pull requests are welcome. Useful contributions include anonymized fixtures, clearer project-type guidance, compatibility notes for other agents, and evaluation cases that catch unsupported claims.
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the branch, local validation, web-review, and publication workflow. Useful contributions include anonymized fixtures, clearer project-type guidance, compatibility notes for other agents, and evaluation cases that catch unsupported claims.
 
 Please do not submit secrets or private project data. If a change affects the profile output, update the schema, template, example, and changelog together.
 
@@ -207,6 +211,8 @@ MIT. See [LICENSE](LICENSE).
 - 哪些内容我已经记不清了？
 
 这些答案通常散落在代码、文档、Prompt、Notebook、示例、生成物、Git 历史和个人记忆中。`project-profile` 帮助 Agent 调查这些材料，整理出一份完整、可复核的项目档案。
+
+v2 会先重建 Canonical Fact Model，再生成正文。默认使用 `balanced`；也可以选择 `resume`、`technical` 预设，或按模块覆盖调查深度（`off`、`brief`、`standard`、`deep`）。深度控制的是调查行为，而不只是输出篇幅。
 
 ### 什么时候使用
 
@@ -350,21 +356,23 @@ npx skills add lwyp41/project-profile --skill project-profile
 project-profile/
 ├─ SKILL.md
 ├─ references/
-│  ├─ profile-schema.md
-│  ├─ evidence-policy.md
-│  ├─ interview-protocol.md
-│  ├─ architecture-analysis.md
-│  └─ extraction-patterns.md
-├─ templates/PROJECT_PROFILE.md
+│  ├─ modules/
+│  ├─ project-types/
+│  └─ evidence、depth、interview、registry 与 rendering policy
+├─ templates/
+├─ scripts/
 ├─ examples/
 ├─ tests/
+├─ evals/
+├─ docs/development/
+├─ CONTRIBUTING.md
 ├─ CHANGELOG.md
 └─ LICENSE
 ```
 
 ### 参与贡献
 
-欢迎提交 Issue 和 Pull Request。适合的贡献包括脱敏后的项目样例、新项目类型的说明、其他 Agent 的兼容性说明，以及能发现无依据结论的评估案例。
+欢迎提交 Issue 和 Pull Request。分支、本地验证、网页评审与发布流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。适合的贡献包括脱敏后的项目样例、新项目类型的说明、其他 Agent 的兼容性说明，以及能发现无依据结论的评估案例。
 
 请不要提交密钥或私人项目数据。如果修改影响了输出格式，请同步更新 schema、template、example 和 changelog。
 

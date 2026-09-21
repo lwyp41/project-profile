@@ -4,6 +4,7 @@ All notable changes to `project-profile` are recorded here.
 
 ## [Unreleased]
 
+- Add contributor guidance, pull-request checks, and CI for a web-review/local-execution workflow without shipping repository-maintenance Agent instructions in the installable Skill.
 - Make profiles native-language by default: select the user's language, compose directly in it, and localize headings and interview questions instead of using a pivot-language draft.
 - Replace the rigid all-sections template with an adaptive narrative body plus an auditable evidence appendix.
 - Add a downstream fact pack that preserves reusable, source-backed contribution evidence for later resume, portfolio, and interview Skills without prematurely turning it into resume copy.

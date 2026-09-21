@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "fixtures": [
+    {"id": "synthetic-agent-skill", "presets": ["resume", "technical"]},
+    {"id": "software", "presets": ["resume", "technical"]},
+    {"id": "sparse", "presets": ["resume", "technical"]}
+  ],
+  "assertions": [
+    "supported baseline facts are not lost",
+    "unsupported material claims equal zero",
+    "controlled preset runs share one frozen revision and testimony fixture",
+    "blind quality comparison and downstream resume evaluation keep independent status",
+    "presets differ by sources, facts, questions, and emphasis",
+    "depth compares sources, facts, and questions rather than word count"
+  ]
+}

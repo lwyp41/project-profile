@@ -1,19 +1,5 @@
-# Validation fixtures
+# v2 Validation
 
-This directory defines the minimum regression checks for future releases. The first release intentionally uses documentation-based checks rather than scripts.
+Run `python scripts/validate_profile.py <rendered-profile.md>` for static output checks. It checks placeholders, evidence/review markers, status presence, and a claim-ledger header; it cannot prove a claim is true.
 
-For each release, verify that:
-
-- `SKILL.md` keeps the workflow order: Discover → Classify Project Type → Select Adaptive Analysis Mode → Build Evidence Map → Extract Verified Knowledge → Detect Knowledge Gaps → Progressive User Interview → Synthesize → Validate → User Review Gate → Generate.
-- The six statuses remain present and distinct: `VERIFIED`, `INFERRED`, `CLARIFICATION_REQUIRED`, `UNKNOWN`, `NOT_APPLICABLE`, `CONFLICTING`.
-- A material field that is absent from project artifacts but answerable by the user must become `CLARIFICATION_REQUIRED` and be asked before it can become `UNKNOWN`.
-- `UNKNOWN` is allowed only after investigation plus an unavailable, declined, or unanswerable interview opportunity; it is never a shortcut for a skipped interview.
-- The nine supported project types remain routable.
-- The template includes Evidence Coverage, Evidence ledger, Career-Relevant Signals, and Review record.
-- The example demonstrates both `UNKNOWN` and `NOT_APPLICABLE`.
-- No example asserts unsupported metrics, business impact, users, decision rationale, or alternatives.
-- For a Chinese request, the draft uses idiomatic Chinese headings and sentence structure rather than translated English headings or syntax; apply the analogous rule to English requests.
-- The main body is an adaptive narrative rather than a compulsory fixed sequence of headings, while the evidence appendix remains auditable.
-- The profile includes a downstream fact pack with situation, work/decision, artifact, observed result, scope, locator, and caveat. Its units are neutral facts, not inflated first-person resume bullets.
-
-Future versions may add anonymized fixture projects and automated validators. Keep fixtures free of secrets and private project data.
+The regression matrix is `synthetic-agent-skill`, `software`, and `sparse` × `resume` and `technical`. Every run needs source-aware coverage, unsupported-claim review, preset differentiation, and depth differentiation based on inspected sources, recovered facts, and questions—not word count. The controlled synthetic fixture additionally needs a fact-level baseline diff with no high-value supported `LOST` item.
