@@ -1,143 +1,73 @@
-# Project Profile: {{PROJECT_NAME}}
+# {{LOCALIZED_PROFILE_TITLE}}: {{PROJECT_NAME}}
 
-> Status: {{PROJECT_STATUS}}  
-> Project type: {{PRIMARY_TYPE}}  
-> Analysis mode: {{ANALYSIS_MODE}}  
-> Evidence date: {{DATE}}
+> {{LOCALIZED_STATUS_LABEL}}: {{PROJECT_STATUS}}<br>
+> {{LOCALIZED_TYPE_LABEL}}: {{PRIMARY_TYPE}}<br>
+> {{LOCALIZED_EVIDENCE_DATE_LABEL}}: {{DATE}}
 
-## 1. Executive summary
+<!-- Write headings and prose directly in the user's language. Select, merge, or omit narrative sections according to the project; do not render placeholder headings or empty sections. -->
 
-{{SUMMARY_WITH_STATUS_LABELS}}
+## {{LOCALIZED_SNAPSHOT_HEADING}}
 
-## 2. Project background
+{{NATIVE_LANGUAGE_SNAPSHOT}}
 
-{{BACKGROUND}}
+## {{LOCALIZED_STORY_HEADING}}
 
-## 3. Problem / Motivation
+{{NATIVE_LANGUAGE_PROJECT_STORY}}
 
-{{PROBLEM}}
+## {{LOCALIZED_OPERATING_MODEL_HEADING}}
 
-## 4. Product or project goals
+{{HOW_IT_WORKS_AND_KEY_ARTIFACTS}}
 
-{{GOALS}}
+## {{LOCALIZED_CHOICES_HEADING}}
 
-## 5. Users and usage scenarios
+{{DECISIONS_TRADEOFFS_AND_BOUNDARIES}}
 
-{{USERS_AND_SCENARIOS}}
+## {{LOCALIZED_CONTRIBUTION_HEADING}}
 
-## 6. Core capabilities / functions
+{{SOURCE_BACKED_CONTRIBUTION_EVIDENCE}}
 
-{{CAPABILITIES}}
+## {{LOCALIZED_VALIDATION_HEADING}}
 
-## 7. Technology, tools, and artifacts
+{{VALIDATION_OUTCOMES_LIMITATIONS_AND_OPEN_QUESTIONS}}
 
-{{TECHNOLOGY}}
+## {{LOCALIZED_FACT_PACK_HEADING}}
 
-## 8. Architecture or operating model
+<!-- Neutral, source-backed facts for later Skills. They are not resume bullets. Omit fields that cannot be supported; state Unknown where the gap materially matters. -->
 
-{{ARCHITECTURE}}
+| {{LOCALIZED_SITUATION}} | {{LOCALIZED_WORK}} | {{LOCALIZED_ARTIFACT}} | {{LOCALIZED_RESULT}} | {{LOCALIZED_SCOPE}} | {{LOCALIZED_EVIDENCE}} | {{LOCALIZED_CAVEAT}} |
+|---|---|---|---|---|---|---|
+| {{SITUATION}} | {{WORK_OR_DECISION}} | {{ARTIFACT_OR_MECHANISM}} | {{OBSERVED_RESULT}} | {{SCOPE_AND_OWNERSHIP}} | {{EVIDENCE_LOCATOR}} | {{CAVEAT}} |
 
-## 9. Data and information flow
+---
 
-{{DATA_FLOW}}
+## {{LOCALIZED_EVIDENCE_APPENDIX_HEADING}}
 
-## 10. APIs, modules, interfaces, or project surfaces
+### {{LOCALIZED_EVIDENCE_COVERAGE_HEADING}}
 
-{{INTERFACES}}
-
-## 11. Technical or methodological challenges
-
-{{CHALLENGES}}
-
-## 12. Key design decisions
-
-{{DECISIONS_AND_RATIONALE}}
-
-## 13. Trade-offs
-
-{{TRADEOFFS}}
-
-## 14. Performance, quality, and metrics
-
-{{METRICS_OR_UNKNOWN}}
-
-## 15. Results / project outcomes
-
-{{OUTCOMES_OR_UNKNOWN}}
-
-## 16. Limitations and risks
-
-{{LIMITATIONS_AND_RISKS}}
-
-## 17. Future work
-
-{{FUTURE_WORK}}
-
-## 18. Conditional analysis
-
-Include only applicable subsections. Mark relevant but unsupported items as `Unknown`.
-
-### AI / Agent / Prompt
-
-- Why AI: {{WHY_AI}}
-- AI capability: {{AI_CAPABILITY}}
-- AI vs traditional approach: {{AI_VS_TRADITIONAL}}
-- Model / LLM strategy: {{MODEL_STRATEGY}}
-- Prompt / agent / RAG design: {{PROMPT_AGENT_RAG}}
-- Human-in-the-loop: {{HUMAN_IN_LOOP}}
-- Evaluation / reliability: {{EVALUATION_RELIABILITY}}
-- Cost: {{COST}}
-- AI risks: {{AI_RISKS}}
-- Business / product value: {{AI_VALUE}}
-
-### Skill / Documentation
-
-- Purpose: {{SKILL_PURPOSE}}
-- Trigger conditions: {{TRIGGERS}}
-- Workflow: {{SKILL_WORKFLOW}}
-- Instructions and decision logic: {{INSTRUCTIONS_LOGIC}}
-- References: {{REFERENCES}}
-- Examples and expected outputs: {{EXAMPLES_OUTPUTS}}
-- Failure modes: {{FAILURE_MODES}}
-
-### Software / Library
-
-{{SOFTWARE_LIBRARY_ANALYSIS}}
-
-### Data / Research
-
-{{DATA_RESEARCH_ANALYSIS}}
-
-### Sparse / Artifact
-
-{{SPARSE_ARTIFACT_ANALYSIS}}
-
-## 19. Evidence Coverage
-
-| Category | Count | Notes |
+| {{LOCALIZED_CATEGORY}} | {{LOCALIZED_COUNT}} | {{LOCALIZED_NOTES}} |
 |---|---:|---|
-| Verified | {{VERIFIED_COUNT}} | {{VERIFIED_NOTES}} |
-| Inferred | {{INFERRED_COUNT}} | {{INFERRED_NOTES}} |
-| Clarification required | {{CLARIFICATION_COUNT}} | {{CLARIFICATION_NOTES}} |
-| Unknown | {{UNKNOWN_COUNT}} | {{UNKNOWN_NOTES}} |
-| Not applicable | {{NA_COUNT}} | {{NA_NOTES}} |
-| Conflicting | {{CONFLICTING_COUNT}} | {{CONFLICTING_NOTES}} |
+| {{LOCALIZED_VERIFIED}} | {{VERIFIED_COUNT}} | {{VERIFIED_NOTES}} |
+| {{LOCALIZED_INFERRED}} | {{INFERRED_COUNT}} | {{INFERRED_NOTES}} |
+| {{LOCALIZED_CLARIFICATION_REQUIRED}} | {{CLARIFICATION_COUNT}} | {{CLARIFICATION_NOTES}} |
+| {{LOCALIZED_UNKNOWN}} | {{UNKNOWN_COUNT}} | {{UNKNOWN_NOTES}} |
+| {{LOCALIZED_NOT_APPLICABLE}} | {{NA_COUNT}} | {{NA_NOTES}} |
+| {{LOCALIZED_CONFLICTING}} | {{CONFLICTING_COUNT}} | {{CONFLICTING_NOTES}} |
 
-Coverage describes evidence availability, not project quality or impact.
+{{LOCALIZED_COVERAGE_EXPLANATION}}
 
-## 20. Career-Relevant Signals
+### {{LOCALIZED_CAREER_SIGNALS_HEADING}}
 
 {{CAREER_SIGNALS}}
 
-## 21. Evidence ledger
+### {{LOCALIZED_EVIDENCE_LEDGER_HEADING}}
 
-| ID | Claim / field | Status | Source kind | Locator | Rationale / gap |
+| ID | {{LOCALIZED_CLAIM}} | {{LOCALIZED_STATUS}} | {{LOCALIZED_SOURCE_KIND}} | {{LOCALIZED_LOCATOR}} | {{LOCALIZED_RATIONALE_OR_GAP}} |
 |---|---|---|---|---|---|
 | {{EVIDENCE_ID}} | {{CLAIM}} | {{STATUS}} | {{SOURCE_KIND}} | {{LOCATOR}} | {{RATIONALE_OR_GAP}} |
 
-## 22. Review record
+### {{LOCALIZED_REVIEW_RECORD_HEADING}}
 
-- User review status: {{REVIEW_STATUS}}
-- Corrections accepted: {{CORRECTIONS}}
-- Explicit unknown / N/A decisions: {{EXPLICIT_DECISIONS}}
-- Remaining conflicts: {{REMAINING_CONFLICTS}}
+- {{LOCALIZED_REVIEW_STATUS}}: {{REVIEW_STATUS}}
+- {{LOCALIZED_CORRECTIONS}}: {{CORRECTIONS}}
+- {{LOCALIZED_EXPLICIT_DECISIONS}}: {{EXPLICIT_DECISIONS}}
+- {{LOCALIZED_REMAINING_CONFLICTS}}: {{REMAINING_CONFLICTS}}

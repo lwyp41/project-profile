@@ -17,13 +17,13 @@ Rank candidate questions by:
 3. whether the question is easy for the user to answer accurately;
 4. whether it resolves a conflict or safety-sensitive ambiguity.
 
-Ask a small batch, normally 3–5 questions. Avoid asking several variants of the same question. Show the reason for each question in plain language.
+Ask a small batch, normally 3–5 questions. Avoid asking several variants of the same question. Show the reason for each question in plain language. Ask and acknowledge answers in the selected output language; compose questions naturally in that language instead of translating a fixed English questionnaire.
 
 ## Adaptive prompts
 
 - Software/library: intended users, production status, key trade-off, operational constraints, measured quality.
 - AI/agent/prompt: why AI, human review boundary, model choice, evaluation method, failure tolerance, cost or privacy constraints.
-- Skill/documentation: intended trigger, expected output, decision boundaries, known failure modes, examples that represent success.
+- Skill/documentation: intended trigger, expected output, decision boundaries, known failure modes, examples that represent success, and the strongest source-backed contribution a later portfolio or resume draft should preserve.
 - Data/research: question, provenance, inclusion/exclusion, method, confidence, limitations, intended decision.
 - Sparse/artifact: what the artifact was for, who used it, lifecycle status, missing surrounding materials.
 

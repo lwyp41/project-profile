@@ -1,32 +1,44 @@
 # Project Profile Schema
 
-Use a Core + Conditional schema. Keep the headings stable enough for comparison, but do not force irrelevant sections into a project.
+Use an adaptive narrative schema. The main body should read as a coherent project account in the user's language, not as a completed questionnaire. Use headings that sound native in that language; do not translate this file's headings word-for-word. Keep the evidence appendix structured enough for a later Skill to inspect.
 
-## Core
+## Main narrative
 
-1. Project identity and status
-2. Project background
-3. Problem / Motivation
-4. Product or project goals
-5. Users and usage scenarios
-6. Core capabilities / functions
-7. Project type and analysis mode
-8. Technology, tools, and artifacts
-9. Architecture or operating model
-10. Data and information flow
-11. APIs, modules, interfaces, or document/skill surfaces
-12. Technical or methodological challenges
-13. Key design decisions
-14. Trade-offs
-15. Performance, quality, or other metrics
-16. Results / project outcomes
-17. Limitations and risks
-18. Future work
-19. Evidence Coverage
-20. Evidence ledger
-21. Career-Relevant Signals
+Use only the blocks that materially improve understanding. Merge blocks when that produces a clearer story.
 
-## Conditional sections
+1. **Project snapshot**: name, status, project shape, one-sentence purpose, and what is directly observable.
+2. **Starting point and problem**: the triggering context, user problem, or constraint. Distinguish documented motivation from an inference.
+3. **What was designed and how it works**: the essential capability, operating model, information flow, modules, artifacts, or decision sequence. For a Skill, explain the trigger, routing, guardrails, and output contract rather than listing every reference file.
+4. **Key choices and trade-offs**: only choices supported by artifacts or user testimony; connect each one to the risk or constraint it addresses.
+5. **Contribution evidence**: what the project owner demonstrably built, investigated, coordinated, decided, or validated. State ownership and collaborators only when known.
+6. **Validation, outcomes, and boundaries**: tests, usage observations, outputs, quality gates, metrics, limitations, and risks. Attribute personal observations and do not convert them into generalized performance claims.
+7. **Next steps or open questions**: include only consequential work that is documented or explicitly proposed by the user.
+
+For compact projects, a strong profile may use only “Project snapshot”, “How it works”, “Contribution evidence”, and “Boundaries”. Do not add empty sections merely to look complete.
+
+## Downstream fact pack
+
+After the narrative, add a localized section whose title means “Reusable facts for downstream use”. Its purpose is to let a later resume, portfolio, or interview Skill select evidence without reverse-engineering prose again.
+
+Include only high-signal units. Each unit should contain:
+
+| Field | Meaning |
+|---|---|
+| Situation / problem | The concrete context or risk addressed |
+| Work or decision | The source-backed action, design, or responsibility |
+| Artifact / mechanism | What was produced or how it was implemented |
+| Observed result | A measured result or clearly attributed observation; otherwise `Unknown` |
+| Scope and ownership | What is known about scale, role, and collaborators |
+| Evidence locator | A concise file, section, commit, or user-answer pointer |
+| Caveat | Missing evidence, confidence boundary, or wording restriction |
+
+These are neutral fact units, not accomplishment bullets. Do not start them with “I”, choose promotional verbs, or combine separate facts into an inflated outcome.
+
+## Evidence appendix
+
+Put the detailed status model, coverage summary, material conflicts, and claim-level ledger after the main narrative and fact pack. This appendix makes the profile auditable without making the story sound mechanical.
+
+## Conditional analysis prompts
 
 ### AI / Agent / Prompt
 
@@ -48,7 +60,7 @@ Include research question, data provenance, sampling or selection, method, analy
 
 Include artifact inventory, observable behavior or structure, plausible use contract, evidence boundary, missing materials, and interview-derived context.
 
-## Field format
+## Evidence-ledger format
 
 For each material claim, record:
 

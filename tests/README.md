@@ -12,5 +12,8 @@ For each release, verify that:
 - The template includes Evidence Coverage, Evidence ledger, Career-Relevant Signals, and Review record.
 - The example demonstrates both `UNKNOWN` and `NOT_APPLICABLE`.
 - No example asserts unsupported metrics, business impact, users, decision rationale, or alternatives.
+- For a Chinese request, the draft uses idiomatic Chinese headings and sentence structure rather than translated English headings or syntax; apply the analogous rule to English requests.
+- The main body is an adaptive narrative rather than a compulsory fixed sequence of headings, while the evidence appendix remains auditable.
+- The profile includes a downstream fact pack with situation, work/decision, artifact, observed result, scope, locator, and caveat. Its units are neutral facts, not inflated first-person resume bullets.
 
 Future versions may add anonymized fixture projects and automated validators. Keep fixtures free of secrets and private project data.

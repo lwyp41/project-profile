@@ -5,7 +5,14 @@ description: Evidence-first reverse-engineer a completed project into a validate
 
 # Project Profile
 
-Create a defensible profile of a completed project. Treat every claim as evidence-backed knowledge, not as marketing copy. Markdown is the source of truth; a DOCX is optional and must be derived from it.
+Create a defensible, usable account of a completed project. The primary deliverable is a native-language project narrative that a human can read naturally and a downstream Skill can reuse without re-investigating the repository. Treat every claim as evidence-backed knowledge, not as marketing copy. Markdown is the source of truth; a DOCX is optional and must be derived from it.
+
+## Language and writing contract
+
+- Determine the **output language** from the user's current request. If the user writes in Chinese, write the profile and interview in natural Chinese; if the user writes in English, write them in natural English. For a genuinely mixed request, follow an explicit preference; otherwise use the dominant language of the request.
+- Compose directly in that language. Do not draft in English and translate to Chinese (or vice versa), and do not mirror the syntax, headings, idioms, or rhetorical order of another language. Source artifacts may be in any language; use them as evidence, preserving names, commands, API terms, and quotes where precision requires it.
+- Write for two readers at once: a person seeking to understand what was built, and a later agent preparing a portfolio, resume, interview narrative, or another synthesis. Prefer concrete causal prose—context, choice, work, result, boundary—over an inventory of files or generic product vocabulary.
+- Keep the readable narrative free of per-sentence audit markers. Where provenance matters, use light, localized labels such as `[事实]` / `[推断]` in Chinese or `[Fact]` / `[Inference]` in English. Put the complete claim-level audit trail in the appendix.
 
 ## Operating contract
 
@@ -16,6 +23,7 @@ Create a defensible profile of a completed project. Treat every claim as evidenc
 - Do not assign `UNKNOWN` merely because repository evidence is absent. For a material claim that a focused user answer could resolve, assign `CLARIFICATION_REQUIRED` and include it in the next interview round. Assign `UNKNOWN` only after the user cannot answer, declines to answer, or the claim cannot be reliably recovered through either investigation or interview.
 - Accepted user answers include “no”, “I don’t know”, “not applicable”, and “I don’t remember”; encode them explicitly rather than pressing for a speculative answer.
 - Never fabricate metrics, business impact, user counts, decision rationale, alternatives, or outcomes. Preserve conflicts and provenance.
+- Do not confuse a project profile with a resume. The profile may identify resume-relevant evidence, but it must not turn a repository fact into a first-person accomplishment, embellish ownership, or imply a result that the evidence does not establish.
 
 ## Workflow
 
@@ -53,11 +61,11 @@ Mark every required schema field as `VERIFIED`, `INFERRED`, `CLARIFICATION_REQUI
 
 ### 7. Progressive User Interview
 
-Ask only a small batch of high-value questions per round, prioritizing gaps that cannot be reliably recovered. Adapt questions to the project type. Offer answer choices such as “no”, “unknown”, “not applicable”, and “don’t remember”. After each round, update the evidence map and stop when remaining gaps are non-blocking or the user declines to answer. Follow [interview-protocol.md](references/interview-protocol.md).
+Ask only a small batch of high-value questions per round, in the output language, prioritizing gaps that cannot be reliably recovered. Adapt questions to the project type. Offer answer choices such as “no”, “unknown”, “not applicable”, and “don’t remember”. After each round, update the evidence map and stop when remaining gaps are non-blocking or the user declines to answer. Follow [interview-protocol.md](references/interview-protocol.md).
 
 ### 8. Synthesize
 
-Draft the canonical profile from the schema. Use Core sections for every project and expand only conditional sections that apply. Put `N/A` where a concept genuinely does not apply and `Unknown` where it matters but evidence is unavailable. Include an objective Evidence Coverage section; do not collapse it into a flattering overall score.
+Draft the canonical profile from the schema. Select only the sections that help explain this project; merge related sections and omit empty headings. Start with a compact project narrative, then make the operating model, decisions, contribution evidence, results, and boundaries easy to find. Add a **downstream fact pack** that preserves the most reusable facts as structured units: situation/problem, the work or decision, artifact/output, observed result, scope/ownership, evidence locator, and caveat. This pack is evidence for later Skills, not prewritten resume bullets. Put `N/A` where a concept genuinely does not apply and `Unknown` where it matters but evidence is unavailable. Include an objective Evidence Coverage section; do not collapse it into a flattering overall score.
 
 ### 9. Validate
 
@@ -65,9 +73,11 @@ Check that every consequential claim has a source and status, every metric is at
 
 ### 10. User Review Gate
 
-Before final generation, show the user the draft’s material claims, unresolved gaps, conflicts, and proposed `UNKNOWN`/`N/A` classifications. Ask the user to confirm, correct, or explicitly mark claims as unknown/not applicable. Do not generate the final profile until the user approves the gate or explicitly asks to proceed with the unresolved labels preserved.
+Before final generation, show the user the draft’s material claims, downstream fact pack, unresolved gaps, conflicts, and proposed `UNKNOWN`/`N/A` classifications in the output language. Ask the user to confirm, correct, or explicitly mark claims as unknown/not applicable. Do not generate the final profile until the user approves the gate or explicitly asks to proceed with the unresolved labels preserved.
 
 ### 11. Generate
+
+Localize the template headings rather than copying their labels into another language. Keep the complete evidence ledger and status labels in an appendix, not in the readable narrative.
 
 Write `PROJECT_PROFILE.md` using [templates/PROJECT_PROFILE.md](templates/PROJECT_PROFILE.md). Preserve the evidence ledger and status labels. Optionally generate `PROJECT_PROFILE.docx` only after Markdown is approved; the DOCX is a presentation derivative, never the source of truth.
 
@@ -78,6 +88,8 @@ Write `PROJECT_PROFILE.md` using [templates/PROJECT_PROFILE.md](templates/PROJEC
 - [ ] Every material, user-resolvable gap was asked in the interview before it was labelled `UNKNOWN`.
 - [ ] Unknown and N/A are not conflated.
 - [ ] No unsupported metrics, impact, users, rationale, alternatives, or outcomes were invented.
+- [ ] The main narrative and interview were composed natively in the user's language, not translated from a pivot draft.
+- [ ] The downstream fact pack distinguishes source-backed work, scope, outcome, and caveat; it contains no fabricated first-person resume claims.
 - [ ] Conditional sections are expanded only when applicable.
 - [ ] AI/agent projects address capability, AI-vs-traditional choice, model/prompt/RAG, human oversight, evaluation, reliability, cost, risks, and value when applicable.
 - [ ] Evidence Coverage is objective and claim-level.

@@ -69,6 +69,8 @@ The main output is `PROJECT_PROFILE.md`, covering the parts that apply to the pr
 - evidence coverage and a claim-level evidence ledger;
 - career-relevant signals.
 
+The profile follows the language of your request. It is composed directly in that language, with an adaptive project narrative first and the detailed evidence audit in an appendix. It also includes a neutral downstream fact pack—situation, work, artifact, observed result, scope, evidence, and caveat—so a later resume or portfolio Skill can reuse the facts without treating the profile as ready-made resume copy.
+
 For AI and agent projects, it can also document the AI capability, the reason to use AI, model or LLM choices, prompts, tools, retrieval, human review, evaluation, reliability, cost, and risks—when those details are relevant and supported by evidence.
 
 For a Skill or documentation project, it focuses on what the Skill is for, when it should trigger, how its workflow works, what decisions it makes, what references and examples it uses, what output it should produce, and how it can fail.
@@ -251,6 +253,8 @@ MIT. See [LICENSE](LICENSE).
 - 限制、风险和未来工作；
 - Evidence Coverage 和逐条证据记录；
 - Career-Relevant Signals。
+
+输出会跟随你的提问语言，并直接用该语言起草，不先用另一种语言写完再翻译。正文会先讲清项目的来龙去脉，详细证据审计放在附录；同时提供一份中性的下游事实包，分别保留情境、工作、产物、已观察结果、范围、证据位置和使用限制，方便后续简历或作品集 Skill 继续加工，而不会把项目档案误当成现成的简历文案。
 
 对于 AI 和 Agent 项目，如果材料中有相关信息，它还可以整理 AI 能力、为什么使用 AI、模型或 LLM 选择、Prompt、工具、检索、人机协作、评估、可靠性、成本和风险。
 
