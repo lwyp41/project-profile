@@ -32,6 +32,36 @@ class InstructionContractTests(unittest.TestCase):
             self.assertIn(mode, skill)
             self.assertIn(mode, registry)
 
+    def test_custom_onboarding_exposes_complete_choice_space_before_discovery(self) -> None:
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8").lower()
+        registry = (ROOT / "references" / "module-registry.md").read_text(encoding="utf-8").lower()
+        for depth in ("off", "brief", "standard", "deep"):
+            self.assertIn(f"`{depth}`", skill)
+        modules = (
+            "project-overview", "background-problem", "users-stakeholders",
+            "goals-success", "requirements-constraints", "product-workflow",
+            "technical-architecture", "ai-agent-design", "information-data",
+            "decisions-tradeoffs", "ownership-contribution", "validation-qa",
+            "outcomes-metrics", "evolution-history", "risks-limitations",
+        )
+        for module in modules:
+            with self.subTest(module=module):
+                self.assertIn(f"`{module}`", skill)
+                self.assertIn(f"`{module}`", registry)
+        self.assertIn("compact example", skill)
+        self.assertIn("natural-language", skill)
+        self.assertIn("visible `standard` baseline", skill)
+        self.assertIn("explicit module overrides always take precedence", skill)
+        self.assertIn("do not begin new repository discovery until custom configuration is resolved", skill)
+
+    def test_custom_configuration_gate_precedes_discovery(self) -> None:
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        selection = skill.index("1. **Select profile mode")
+        discovery = skill.index("2. **Discover")
+        custom_gate = skill.index("For Custom, the onboarding/configuration exchange is part of this gate")
+        self.assertLess(selection, discovery)
+        self.assertLess(custom_gate, discovery)
+
     def test_interview_and_review_states_are_explicit_runtime_gates(self) -> None:
         skill = (ROOT / "SKILL.md").read_text(encoding="utf-8").lower()
         policy = (ROOT / "references" / "interview-policy.md").read_text(encoding="utf-8").lower()

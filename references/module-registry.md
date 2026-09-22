@@ -68,4 +68,4 @@ balanced:
   risks-limitations: brief
 ```
 
-For `custom`, do not apply one of the preset maps first. Use the user's stated module/depth choices as the baseline, fill only unspecified but applicable modules according to explicit user instruction, and clarify when the remaining behavior is ambiguous.
+For `custom`, do not apply one of the preset maps first. The visible default baseline is `standard` unless the user explicitly sets another `default depth`; apply that baseline to unspecified applicable modules, then apply explicit per-module overrides (which always win). Do not hide this baseline during onboarding. Clarify only unknown module IDs, invalid depths, or ambiguities that materially change investigation.
