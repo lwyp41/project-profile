@@ -32,6 +32,44 @@ class InstructionContractTests(unittest.TestCase):
             self.assertIn(mode, skill)
             self.assertIn(mode, registry)
 
+    def test_custom_onboarding_exposes_complete_choice_space_before_discovery(self) -> None:
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8").lower()
+        registry = (ROOT / "references" / "module-registry.md").read_text(encoding="utf-8").lower()
+        onboarding_start = skill.index("for **custom**, complete an explicit onboarding exchange")
+        onboarding_end = skill.index("## workflow", onboarding_start)
+        onboarding = skill[onboarding_start:onboarding_end]
+        self.assertIn("immediately after custom is selected, proactively show", onboarding)
+        self.assertLess(
+            onboarding.index("immediately after custom is selected"),
+            onboarding.index("the custom onboarding must include this complete choice space"),
+        )
+        for depth in ("off", "brief", "standard", "deep"):
+            self.assertIn(f"`{depth}`", onboarding)
+        modules = (
+            "project-overview", "background-problem", "users-stakeholders",
+            "goals-success", "requirements-constraints", "product-workflow",
+            "technical-architecture", "ai-agent-design", "information-data",
+            "decisions-tradeoffs", "ownership-contribution", "validation-qa",
+            "outcomes-metrics", "evolution-history", "risks-limitations",
+        )
+        for module in modules:
+            with self.subTest(module=module):
+                self.assertIn(f"`{module}`", onboarding)
+                self.assertIn(f"`{module}`", registry)
+        self.assertIn("compact example", onboarding)
+        self.assertIn("natural-language", onboarding)
+        self.assertIn("visible `standard` baseline", onboarding)
+        self.assertIn("explicit module overrides always take precedence", onboarding)
+        self.assertIn("do not begin new repository discovery until custom configuration is resolved", onboarding)
+
+    def test_custom_configuration_gate_precedes_discovery(self) -> None:
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        selection = skill.index("1. **Select profile mode")
+        discovery = skill.index("2. **Discover")
+        custom_gate = skill.index("For Custom, the onboarding/configuration exchange is part of this gate")
+        self.assertLess(selection, discovery)
+        self.assertLess(custom_gate, discovery)
+
     def test_interview_and_review_states_are_explicit_runtime_gates(self) -> None:
         skill = (ROOT / "SKILL.md").read_text(encoding="utf-8").lower()
         policy = (ROOT / "references" / "interview-policy.md").read_text(encoding="utf-8").lower()

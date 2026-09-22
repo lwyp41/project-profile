@@ -10,3 +10,5 @@ Depth is an investigation commitment for one module, not a word-count setting. E
 | `deep` | Inspect implementation, references, examples, tests, generated artifacts, Git history, older variants, changelog, and conflicting sources when available. | Actively recover evolution, alternatives, rationale, ownership, usage, scale, outcomes, and failures; ask user-answerable gaps. |
 
 Evaluation compares the inspected-source set, fact set, and question set for the same module at each depth. A difference in prose length alone is a failure.
+
+For Custom, `standard` is the visible default depth for unspecified applicable modules unless the user explicitly chooses another default depth. A per-module override always takes precedence over that baseline. The effective depth and the rule used to derive it must be recorded in the Module Coverage Map; no Custom baseline may remain hidden.
