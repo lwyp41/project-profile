@@ -5,6 +5,7 @@ All notable changes to `project-profile` are recorded here.
 ## [Unreleased]
 
 - Require an explicit `balanced`, `resume`, `technical`, or first-class `custom` profile mode before discovery; do not silently default.
+- Make Custom onboarding self-explanatory before discovery: show all four depths, the 15 canonical modules, compact/natural-language configuration examples, and the visible `standard` baseline for unspecified modules.
 - Require a material-gap scan, record an explicit no-interview reason when applicable, and hold final rendering behind the user-visible Review gate unless unattended/no-review was requested in advance.
 - Refresh the bilingual README with the four-mode startup flow, Custom configuration guidance, and the Interview/Review gates.
 
