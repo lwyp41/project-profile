@@ -28,11 +28,13 @@ SignalTriage is a synthetic Agent Skill that turns incoming reports into a scree
 
 ### Module coverage
 
-| Module | Depth | Sources | Fact IDs |
-|---|---|---|---|
-| project-overview | brief | synthetic repository description | F01 |
-| decisions-tradeoffs | standard | T02, T03 | F02, F04 |
-| outcomes-metrics | brief | absence of metrics | F03 |
+<!-- project-profile-module-coverage: v2 -->
+
+| Module | Applicability | Depth | Inspected sources | Fact IDs | Recovered semantic coverage | Material gaps / clarification state | Render destination |
+|---|---|---|---|---|---|---|---|
+| project-overview | applicable | brief | synthetic repository description | F01 | shape, capability, boundary | none | Project overview |
+| decisions-tradeoffs | applicable | standard | T02, T03 | F02, F04 | constraint, choice, intended consequence | actual outcome UNKNOWN | Reusable facts |
+| outcomes-metrics | applicable | brief | absence of metrics | F03 | measurement absence | adoption and outcome metrics UNKNOWN | Reusable facts |
 
 ### Evidence ledger
 
