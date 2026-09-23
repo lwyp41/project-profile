@@ -20,41 +20,42 @@ LEDGER_HEADER = "| ID | Module | Claim | Claim type | Status | Source kind | Loc
 CHINESE_LEDGER_HEADER = "| ID | 模块 | 主张 | 主张类型 | 状态 | 来源类型 | 定位 | 时间 | 归属 | 指标 | 理由 | 限制 | 冲突 | 审阅状态 |"
 LEDGER_DIVIDER = "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"
 LEDGER_ROW = "| F01 | project-overview | Example | fact | VERIFIED | repository | README | current | — | — | — | — | 无 | controlled-reviewed |"
-MODULE_COVERAGE = "\n".join((MODULE_COVERAGE_MARKER, "| Module | Applicability | Depth | Sources | Fact IDs | Recovered coverage | Material gaps | Render destination |", "|---|---|---|---|---|---|---|---|", "| project-overview | applicable | standard | README | F01 | boundary, capability | none | Overview |"))
+MODULE_COVERAGE = "\n".join(("## Evidence appendix", MODULE_COVERAGE_MARKER, "| Module | Applicability | Depth | Sources | Fact IDs | Recovered coverage | Material gaps | Render destination |", "|---|---|---|---|---|---|---|---|", "| project-overview | applicable | standard | README | F01 | boundary, capability | none | Narrative |"))
 
 class ValidateProfileTests(unittest.TestCase):
     def test_accepts_minimal_contract(self) -> None:
         statuses = "\n".join(("VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"))
         table = "| a | b | c |\n|---|---|---|"
         ledger = "\n".join((LEDGER_MARKER, LEDGER_HEADER, LEDGER_DIVIDER, LEDGER_ROW))
-        errors = validate_content(f"# Profile\n{statuses}\n{table}\n{table}\n{table}\n{MODULE_COVERAGE}\n{ledger}")
+        errors = validate_content(f"# Profile\n## Narrative\n{statuses}\n{table}\n{table}\n{table}\n{MODULE_COVERAGE}\n{ledger}")
         self.assertEqual(errors, [])
 
     def test_accepts_chinese_only_ledger_header(self) -> None:
         statuses = "\n".join(("VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"))
         table = "| a | b | c |\n|---|---|---|"
         ledger = "\n".join((LEDGER_MARKER, CHINESE_LEDGER_HEADER, LEDGER_DIVIDER, LEDGER_ROW))
-        self.assertEqual(validate_content(f"# 档案\n{statuses}\n{table}\n{table}\n{table}\n{MODULE_COVERAGE}\n{ledger}"), [])
+        chinese_coverage = MODULE_COVERAGE.replace("| Narrative |", "| 叙述 |")
+        self.assertEqual(validate_content(f"# 档案\n## 叙述\n{statuses}\n{table}\n{table}\n{table}\n{chinese_coverage}\n{ledger}"), [])
 
     def test_rejects_legacy_ten_column_ledger(self) -> None:
         statuses = "\n".join(("VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"))
         table = "| a | b | c |\n|---|---|---|"
         legacy = "\n".join((LEDGER_MARKER, "| ID | Module | Claim | Status | Source | Locator | Time | Ownership | Metric | Notes |", "|---|---|---|---|---|---|---|---|---|---|", "| F01 | x | y | VERIFIED | repository | z | now | — | — | — |"))
-        errors = validate_content(f"# Profile\n{statuses}\n{table}\n{table}\n{table}\n{MODULE_COVERAGE}\n{legacy}")
+        errors = validate_content(f"# Profile\n## Narrative\n{statuses}\n{table}\n{table}\n{table}\n{MODULE_COVERAGE}\n{legacy}")
         self.assertTrue(any("canonical fact ledger" in error for error in errors))
 
     def test_rejects_coverage_count_mismatch(self) -> None:
         statuses = "\n".join(("VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"))
         table = "| a | b | c |\n|---|---|---|"
         ledger = "\n".join((LEDGER_MARKER, LEDGER_HEADER, LEDGER_DIVIDER, LEDGER_ROW))
-        profile = f"# Profile\n{statuses}\n| VERIFIED | 2 | wrong |\n{table}\n{table}\n{MODULE_COVERAGE}\n{ledger}"
+        profile = f"# Profile\n## Narrative\n{statuses}\n| VERIFIED | 2 | wrong |\n{table}\n{table}\n{MODULE_COVERAGE}\n{ledger}"
         self.assertTrue(any("evidence coverage count" in error for error in validate_content(profile)))
 
     def test_rejects_verified_user_claim_outside_fixture(self) -> None:
         statuses = "\n".join(("VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"))
         table = "| a | b | c |\n|---|---|---|"
         user_row = LEDGER_ROW.replace("repository | README", "user | T02")
-        profile_text = f"# Profile\n{statuses}\n{table}\n{table}\n{table}\n{MODULE_COVERAGE}\n{LEDGER_MARKER}\n{LEDGER_HEADER}\n{LEDGER_DIVIDER}\n{user_row}"
+        profile_text = f"# Profile\n## Narrative\n{statuses}\n{table}\n{table}\n{table}\n{MODULE_COVERAGE}\n{LEDGER_MARKER}\n{LEDGER_HEADER}\n{LEDGER_DIVIDER}\n{user_row}"
         with tempfile.NamedTemporaryFile("w", suffix=".md", encoding="utf-8", delete=False) as profile_handle, tempfile.NamedTemporaryFile("w", suffix=".md", encoding="utf-8", delete=False) as fixture_handle:
             profile_handle.write(profile_text)
             fixture_handle.write("| T01 | supported testimony |\n")
@@ -81,10 +82,61 @@ class ValidateProfileTests(unittest.TestCase):
             config.unlink(missing_ok=True)
         self.assertEqual(len(errors), 3)
 
+    def test_accepts_custom_config(self) -> None:
+        with tempfile.NamedTemporaryFile("w", suffix=".yaml", encoding="utf-8", delete=False) as handle:
+            handle.write("purpose: custom\ndefault_depth: standard\nmodules:\n  technical-architecture: deep\n")
+            config = Path(handle.name)
+        try:
+            errors = validate_config(config)
+        finally:
+            config.unlink(missing_ok=True)
+        self.assertEqual(errors, [])
+
     def test_rejects_material_module_without_coverage_or_destination(self) -> None:
         statuses = "\n".join(("VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"))
         table = "| a | b | c |\n|---|---|---|"
-        broken_coverage = MODULE_COVERAGE.replace("boundary, capability", "none").replace("| Overview |", "|  |")
+        broken_coverage = MODULE_COVERAGE.replace("boundary, capability", "none").replace("| Narrative |", "|  |")
         ledger = "\n".join((LEDGER_MARKER, LEDGER_HEADER, LEDGER_DIVIDER, LEDGER_ROW))
-        errors = validate_content(f"# Profile\n{statuses}\n{table}\n{table}\n{table}\n{broken_coverage}\n{ledger}")
+        errors = validate_content(f"# Profile\n## Narrative\n{statuses}\n{table}\n{table}\n{table}\n{broken_coverage}\n{ledger}")
         self.assertTrue(any("must preserve recovered coverage" in error for error in errors))
+
+    def test_rejects_material_module_with_nonexistent_render_destination(self) -> None:
+        statuses = "\n".join(("VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"))
+        table = "| a | b | c |\n|---|---|---|"
+        broken_coverage = MODULE_COVERAGE.replace("| Narrative |", "| Missing narrative section |")
+        ledger = "\n".join((LEDGER_MARKER, LEDGER_HEADER, LEDGER_DIVIDER, LEDGER_ROW))
+        errors = validate_content(f"# Profile\n## Narrative\n{statuses}\n{table}\n{table}\n{table}\n{broken_coverage}\n{ledger}")
+        self.assertTrue(any("does not resolve to a rendered heading" in error for error in errors))
+
+    def test_rejects_destination_that_only_exists_in_evidence_appendix(self) -> None:
+        statuses = "\n".join(("VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"))
+        table = "| a | b | c |\n|---|---|---|"
+        appendix_coverage = MODULE_COVERAGE.replace(
+            "## Evidence appendix\n" + MODULE_COVERAGE_MARKER,
+            "## Evidence appendix\n### Appendix-only section\n" + MODULE_COVERAGE_MARKER,
+        ).replace("| Narrative |", "| Appendix-only section |")
+        ledger = "\n".join((LEDGER_MARKER, LEDGER_HEADER, LEDGER_DIVIDER, LEDGER_ROW))
+        profile = f"# Profile\n{statuses}\n{table}\n{table}\n{table}\n{appendix_coverage}\n{ledger}"
+        errors = validate_content(profile)
+        self.assertTrue(any("does not resolve to a rendered heading" in error for error in errors))
+
+    def test_rejects_destination_inside_localized_evidence_appendix(self) -> None:
+        statuses = "\n".join(("VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"))
+        table = "| a | b | c |\n|---|---|---|"
+        appendix_coverage = MODULE_COVERAGE.replace(
+            "## Evidence appendix\n" + MODULE_COVERAGE_MARKER,
+            "## Apéndice de evidencia\n### Sección solo de apéndice\n" + MODULE_COVERAGE_MARKER,
+        ).replace("| Narrative |", "| Sección solo de apéndice |")
+        ledger = "\n".join((LEDGER_MARKER, LEDGER_HEADER, LEDGER_DIVIDER, LEDGER_ROW))
+        profile = f"# Perfil\n## Narrativa\nTexto de perfil.\n{statuses}\n{table}\n{table}\n{table}\n{appendix_coverage}\n{ledger}"
+        errors = validate_content(profile)
+        self.assertTrue(any("does not resolve to a rendered heading" in error for error in errors))
+
+    def test_rejects_empty_render_destination_section(self) -> None:
+        statuses = "\n".join(("VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"))
+        table = "| a | b | c |\n|---|---|---|"
+        empty_coverage = MODULE_COVERAGE.replace("| Narrative |", "| Empty narrative |")
+        ledger = "\n".join((LEDGER_MARKER, LEDGER_HEADER, LEDGER_DIVIDER, LEDGER_ROW))
+        profile = f"# Profile\n## Empty narrative\n## Evidence appendix\n{statuses}\n{table}\n{table}\n{table}\n{empty_coverage}\n{ledger}"
+        errors = validate_content(profile)
+        self.assertTrue(any("does not resolve to a rendered heading" in error for error in errors))

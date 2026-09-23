@@ -117,7 +117,7 @@ class InstructionContractTests(unittest.TestCase):
                 self.assertIn(marker, rendering)
 
     def test_controlled_depth_eval_preserves_semantic_coverage(self) -> None:
-        """Frozen same-fixture runs prove semantic (not length) depth differentiation."""
+        """A deterministic contract fixture checks semantic (not length) depth differentiation."""
         eval_path = ROOT / "evals" / "depth-observable" / "controlled-depth-eval.json"
         evaluation = json.loads(eval_path.read_text(encoding="utf-8"))
         required_modules = {
@@ -161,3 +161,24 @@ class InstructionContractTests(unittest.TestCase):
                     set(review[module]["recovered_coverage"]),
                     set(final[module]["preserved_coverage"]),
                 )
+
+    def test_branch_loaded_manual_acceptance_is_distinct_from_contract_fixture(self) -> None:
+        acceptance = (ROOT / "evals" / "depth-observable" / "branch-loaded-manual-acceptance.md").read_text(encoding="utf-8")
+        for marker in (
+            "not an automated or model-runtime evaluation",
+            "Balanced", "Custom", "Review disposition", "Final rendering",
+            "technical-architecture", "product-workflow", "decisions-tradeoffs", "evolution-history",
+        ):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, acceptance)
+        for module, destination in {
+            "technical-architecture": "Architecture and runtime",
+            "product-workflow": "Workflow and controls",
+            "ai-agent-design": "Agent controls and limits",
+            "decisions-tradeoffs": "Decisions and evidence limits",
+            "validation-qa": "Validation boundaries",
+            "evolution-history": "Evolution and current state",
+        }.items():
+            with self.subTest(module=module):
+                self.assertIn(f"| {module} | deep |", acceptance)
+                self.assertIn(f"#### {destination}", acceptance)

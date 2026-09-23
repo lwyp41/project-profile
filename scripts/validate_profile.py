@@ -7,7 +7,7 @@ from pathlib import Path
 
 STATUSES = {"VERIFIED", "INFERRED", "CLARIFICATION_REQUIRED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING"}
 DEPTHS = {"off", "brief", "standard", "deep"}
-PURPOSES = {"resume", "technical", "balanced"}
+PURPOSES = {"resume", "technical", "balanced", "custom"}
 MODULES = {
     "project-overview", "background-problem", "users-stakeholders", "goals-success",
     "requirements-constraints", "product-workflow", "technical-architecture", "ai-agent-design",
@@ -43,6 +43,32 @@ def validate(path: Path, testimony_fixture: Path | None = None) -> list[str]:
         errors.append("missing required fact-pack, coverage, or ledger tables")
     lines = text.splitlines()
     module_coverage_indexes = [index for index, line in enumerate(lines) if line.strip() == MODULE_COVERAGE_MARKER]
+    appendix_start = len(lines)
+    if len(module_coverage_indexes) == 1:
+        for index in range(module_coverage_indexes[0] - 1, -1, -1):
+            if re.match(r"^##\s+\S", lines[index]):
+                appendix_start = index
+                break
+
+    rendered_sections: dict[str, bool] = {}
+    for index, line in enumerate(lines[:appendix_start]):
+        heading = re.match(r"^(#{2,})\s+(\S.*)$", line)
+        if not heading:
+            continue
+        level = len(heading.group(1))
+        section_end = appendix_start
+        for candidate in range(index + 1, appendix_start):
+            next_heading = re.match(r"^(#{2,})\s+(\S.*)$", lines[candidate])
+            if next_heading and len(next_heading.group(1)) <= level:
+                section_end = candidate
+                break
+        has_content = any(
+            candidate.strip() and not candidate.lstrip().startswith("<!--") and not candidate.lstrip().startswith("#")
+            for candidate in lines[index + 1:section_end]
+        )
+        heading_text = heading.group(2).strip().casefold()
+        rendered_sections[heading_text] = rendered_sections.get(heading_text, False) or has_content
+
     if len(module_coverage_indexes) != 1:
         errors.append("missing or repeated module coverage schema marker")
     for marker_index in module_coverage_indexes:
@@ -64,6 +90,9 @@ def validate(path: Path, testimony_fixture: Path | None = None) -> list[str]:
             enabled_applicable = depth.lower() != "off" and applicability.lower() not in {"not applicable", "不适用"}
             if enabled_applicable and has_material_facts and (not recovered.strip() or recovered.lower() in {"none", "—", "无"} or not destination.strip()):
                 errors.append(f"module coverage row for {cells[0]} must preserve recovered coverage and render destination")
+                break
+            if enabled_applicable and has_material_facts and not rendered_sections.get(destination.strip().casefold(), False):
+                errors.append(f"module coverage row for {cells[0]} has a render destination that does not resolve to a rendered heading")
                 break
     marker_indexes = [index for index, line in enumerate(lines) if line.strip() == LEDGER_MARKER]
     if len(marker_indexes) != 1:

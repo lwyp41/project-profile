@@ -52,7 +52,7 @@ For **Custom**, complete an explicit onboarding exchange before discovery. Immed
 The Custom onboarding must include this complete choice space (use the module-registry descriptions, translated into the user's language):
 
 | Depth | Meaning |
-|---|---|---|
+|---|---|
 | `off` | Do not independently investigate or render the module. |
 | `brief` | Inspect only obvious high-signal sources; render orientation and highest-value facts. |
 | `standard` | Inspect primary artifacts plus relevant documentation, examples, and tests; render a complete project-summary account of what exists, how it works, a major constraint/choice/result, and the evidence boundary where applicable. |
