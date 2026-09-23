@@ -48,12 +48,14 @@ Coverage measures evidence availability, not project quality or impact.
 
 ### Module coverage
 
-| Module | Applicability | Depth | Inspected sources | Fact IDs | Render decision |
-|---|---|---|---|---|---|
-| project-overview | applicable | brief | `SKILL.md` | E1 | rendered |
-| product-workflow | applicable | standard | `SKILL.md`, `references/`, `examples/` | E1–E2 | rendered |
-| outcomes-metrics | applicable | brief | fixture narrative | E3 | rendered as boundary only |
-| technical-architecture | not applicable | off | none | E4 | omitted |
+<!-- project-profile-module-coverage: v2 -->
+
+| Module | Applicability | Depth | Inspected sources | Fact IDs | Recovered semantic coverage | Material gaps / clarification state | Render destination |
+|---|---|---|---|---|---|---|---|
+| project-overview | applicable | brief | `SKILL.md` | E1 | shape, capability, boundary | none | What this project does |
+| product-workflow | applicable | standard | `SKILL.md`, `references/`, `examples/` | E1–E2 | primary flow, gate, evidence boundary | no observed effect | How the workflow addresses the problem |
+| outcomes-metrics | applicable | brief | fixture narrative | E3 | measurement absence | adoption and time evidence UNKNOWN | What this project does |
+| technical-architecture | not applicable | off | none | E4 | none | N/A: no runtime API | omitted |
 
 ### Unknown / N/A / conflicts
 

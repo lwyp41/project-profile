@@ -15,3 +15,9 @@ Enable for products, services, agents, prompts, operations, and tools with meani
 ## Facts, interview, and rendering
 
 Record actor, input, transformation, gate, output, failure path, source, rationale, and ownership. Ask which step prevents the highest-cost failure and what happens when tools, evidence, or approval are unavailable. Do not call a file list a workflow or assert quality improvement without observation; render gates explicitly.
+
+## Render by depth
+
+- **Brief render:** primary actor/input → processing → output.
+- **Standard render:** preserve Brief; add actors, happy path, major gates or handoffs, output, and one guarded/failure path where evidenced.
+- **Deep render:** preserve Standard; add public entry paths, state handoffs, approval/HITL gates, source boundaries, fallback/degradation behavior, supported separation rationale, and material failure prevention where evidenced.

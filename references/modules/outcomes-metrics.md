@@ -15,3 +15,9 @@ Enable whenever usage, performance, quality, time, cost, adoption, or impact mig
 ## Facts, interview, and rendering
 
 Record claim type, value/unit, scope, period, method, source, caveat, and ownership. Ask what was observed, over what scope and time, and how it was measured. Do not infer impact from shipped features or quality from a validation rule; render unknown outcomes explicitly.
+
+## Render by depth
+
+- **Brief render:** highest-value supported outcome or explicit absence of measurement.
+- **Standard render:** preserve Brief; add result classification, scope/time boundary, and a material caveat or unmeasured condition.
+- **Deep render:** preserve Standard; add value/unit, method, source, counterevidence, owner-experience versus benchmark distinction, and clarification gaps where evidenced.

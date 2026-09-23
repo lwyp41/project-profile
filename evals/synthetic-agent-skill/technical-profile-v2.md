@@ -28,11 +28,13 @@ SignalTriage is a synthetic Agent Skill with an ordered intake, diagnosis, strat
 
 ### Module coverage
 
-| Module | Depth | Sources | Fact IDs |
-|---|---|---|---|
-| technical-architecture | standard | synthetic fixture README | F01, F05 |
-| validation-qa | standard | T03 | F02 |
-| outcomes-metrics | brief | absence of metrics | F03 |
+<!-- project-profile-module-coverage: v2 -->
+
+| Module | Applicability | Depth | Inspected sources | Fact IDs | Recovered semantic coverage | Material gaps / clarification state | Render destination |
+|---|---|---|---|---|---|---|---|
+| technical-architecture | applicable | standard | synthetic fixture README | F01, F05 | boundary, deterministic control, limitation | runtime service N/A | Technical profile |
+| validation-qa | applicable | standard | T03 | F02 | approval control, verification boundary | no quality metric | Control model |
+| outcomes-metrics | applicable | brief | absence of metrics | F03 | measurement absence | reliability and adoption UNKNOWN | Technical profile |
 
 ### Evidence ledger
 

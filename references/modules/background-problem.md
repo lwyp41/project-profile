@@ -15,3 +15,9 @@ Enable when a predecessor, pain point, risk, request, or rejected approach exist
 ## Facts, interview, and rendering
 
 Record trigger, stakeholder, risk, source, time, and rationale status. Ask “What failure or constraint made this change necessary?” when a material choice lacks motivation. Do not infer motivation from a feature list; render causal context before mechanism and preserve unresolved rationale.
+
+## Render by depth
+
+- **Brief render:** triggering context, core problem, and affected party or risk.
+- **Standard render:** preserve Brief; add the current response, a major constraint, and the evidence boundary around motivation or result.
+- **Deep render:** preserve Standard; add initial state, observed limitation, redesign, alternatives or conflicts, and unresolved rationale as clarification where evidenced.

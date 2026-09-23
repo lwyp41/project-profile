@@ -46,12 +46,14 @@ Skill 会收集报障信息，检查范围和复现细节，完成分类后再�
 
 ### 模块覆盖情况
 
-| 模块 | 适用性 | 深度 | 已检查来源 | 事实编号 | 渲染决定 |
-|---|---|---|---|---|---|
-| project-overview | 适用 | brief | `SKILL.md` | E1 | 已渲染 |
-| product-workflow | 适用 | standard | `SKILL.md`、`references/`、`examples/` | E1–E2 | 已渲染 |
-| outcomes-metrics | 适用 | brief | 示例叙述 | E3 | 仅渲染边界 |
-| technical-architecture | 不适用 | off | 无 | E4 | 已省略 |
+<!-- project-profile-module-coverage: v2 -->
+
+| 模块 | 适用性 | 深度 | 已检查来源 | 事实编号 | 已恢复的语义覆盖 | 材料缺口 / 澄清状态 | 渲染去向 |
+|---|---|---|---|---|---|---|---|
+| project-overview | 适用 | brief | `SKILL.md` | E1 | 形态、能力、边界 | 无 | 它解决的不是“把工单写得更漂亮” |
+| product-workflow | 适用 | standard | `SKILL.md`、`references/`、`examples/` | E1–E2 | 主流程、关口、证据边界 | 没有已观察到的效果 | 工作流如何落地 |
+| outcomes-metrics | 适用 | brief | 示例叙述 | E3 | 缺少测量 | 采用和耗时证据为 UNKNOWN | 它解决的不是“把工单写得更漂亮” |
+| technical-architecture | 不适用 | off | 无 | E4 | 无 | N/A：没有运行时 API | 已省略 |
 
 ### 证据记录
 

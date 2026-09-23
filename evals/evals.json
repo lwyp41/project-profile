@@ -11,6 +11,7 @@
     "controlled preset runs share one frozen revision and testimony fixture",
     "blind quality comparison and downstream resume evaluation keep independent status",
     "presets differ by sources, facts, questions, and emphasis",
-    "depth compares sources, facts, and questions rather than word count"
+    "the deterministic depth contract fixture compares sources, facts, questions, and rendered semantic coverage rather than word count",
+    "enabled applicable material modules retain Review dispositions and final render destinations"
   ]
 }

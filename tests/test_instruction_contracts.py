@@ -1,4 +1,6 @@
 import unittest
+import json
+import re
 from pathlib import Path
 
 
@@ -8,7 +10,10 @@ MODULES = ROOT / "references" / "modules"
 
 class InstructionContractTests(unittest.TestCase):
     def test_every_module_has_procedural_contract(self) -> None:
-        required = ("Goal", "Applicability", "Brief", "Standard", "Deep", "Facts", "render")
+        required = (
+            "Goal", "Applicability", "Brief", "Standard", "Deep", "Facts",
+            "Render by depth", "Brief render", "Standard render", "Deep render",
+        )
         for path in MODULES.glob("*.md"):
             text = path.read_text(encoding="utf-8")
             with self.subTest(module=path.name):
@@ -87,3 +92,93 @@ class InstructionContractTests(unittest.TestCase):
             with self.subTest(artifact=path.name):
                 for marker in legacy_markers:
                     self.assertNotIn(marker, text)
+
+    def test_custom_accepts_compact_localized_selectors_and_optional_ids(self) -> None:
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        registry = (ROOT / "references" / "module-registry.md").read_text(encoding="utf-8")
+        for selector in ("6,7,8,10,12,14", "架构、流程、Agent、决策、验证、演进", "canonical ids are optional"):
+            with self.subTest(selector=selector):
+                self.assertIn(selector.lower(), skill.lower())
+        for marker in ("Numeric selector", "Chinese label", "Accepted aliases", "Normalize"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, registry)
+
+    def test_depth_policy_requires_rendered_semantic_coverage(self) -> None:
+        policy = (ROOT / "references" / "depth-policy.md").read_text(encoding="utf-8").lower()
+        rendering = (ROOT / "references" / "rendering-policy.md").read_text(encoding="utf-8").lower()
+        for marker in (
+            "rendered substance", "semantic coverage", "complete project summary",
+            "must preserve", "not a word-count setting",
+        ):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, policy)
+        for marker in ("recovered coverage", "proposed render destination", "cannot silently disappear"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, rendering)
+
+    def test_controlled_depth_eval_preserves_semantic_coverage(self) -> None:
+        """A deterministic contract fixture checks semantic (not length) depth differentiation."""
+        eval_path = ROOT / "evals" / "depth-observable" / "controlled-depth-eval.json"
+        evaluation = json.loads(eval_path.read_text(encoding="utf-8"))
+        required_modules = {
+            "technical-architecture", "product-workflow", "decisions-tradeoffs", "evolution-history",
+        }
+        self.assertEqual(required_modules, set(evaluation["module_runs"]))
+
+        for module, run in evaluation["module_runs"].items():
+            with self.subTest(module=module):
+                self.assertEqual(evaluation["fixture_id"], run["fixture_id"])
+                available = set(run["available_evidence_categories"])
+                prior = set()
+                for depth in ("brief", "standard", "deep"):
+                    result = run["results"][depth]
+                    recovered = set(result["recovered_coverage"])
+                    rendered_artifact = (
+                        eval_path.parent / evaluation["render_directory"] / f"{module}-{depth}.md"
+                    )
+                    rendered = set(re.findall(
+                        r"^- \[([a-z_]+)\]", rendered_artifact.read_text(encoding="utf-8"), re.MULTILINE,
+                    ))
+                    self.assertTrue(prior < recovered, "each depth must add evidenced semantic coverage")
+                    self.assertEqual(recovered, rendered, "the frozen rendered artifact must not collapse recovered coverage")
+                    self.assertTrue(rendered <= available, "coverage must be grounded in frozen evidence")
+                    prior = recovered
+
+    def test_multi_module_eval_preserves_review_and_final_dispositions(self) -> None:
+        eval_path = ROOT / "evals" / "depth-observable" / "controlled-depth-eval.json"
+        coverage = json.loads(eval_path.read_text(encoding="utf-8"))["multi_module_coverage"]
+        enabled = set(coverage["enabled_applicable_material_modules"])
+        review = coverage["review_dispositions"]
+        final = coverage["final_render_destinations"]
+        self.assertEqual(enabled, set(review))
+        self.assertEqual(enabled, set(final))
+        for module in enabled:
+            with self.subTest(module=module):
+                self.assertEqual("deep", review[module]["effective_depth"])
+                self.assertTrue(review[module]["recovered_coverage"])
+                self.assertTrue(final[module]["destination"])
+                self.assertEqual(
+                    set(review[module]["recovered_coverage"]),
+                    set(final[module]["preserved_coverage"]),
+                )
+
+    def test_branch_loaded_manual_acceptance_is_distinct_from_contract_fixture(self) -> None:
+        acceptance = (ROOT / "evals" / "depth-observable" / "branch-loaded-manual-acceptance.md").read_text(encoding="utf-8")
+        for marker in (
+            "not an automated or model-runtime evaluation",
+            "Balanced", "Custom", "Review disposition", "Final rendering",
+            "technical-architecture", "product-workflow", "decisions-tradeoffs", "evolution-history",
+        ):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, acceptance)
+        for module, destination in {
+            "technical-architecture": "Architecture and runtime",
+            "product-workflow": "Workflow and controls",
+            "ai-agent-design": "Agent controls and limits",
+            "decisions-tradeoffs": "Decisions and evidence limits",
+            "validation-qa": "Validation boundaries",
+            "evolution-history": "Evolution and current state",
+        }.items():
+            with self.subTest(module=module):
+                self.assertIn(f"| {module} | deep |", acceptance)
+                self.assertIn(f"#### {destination}", acceptance)

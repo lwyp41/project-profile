@@ -13,3 +13,9 @@ Recover name, lifecycle, shape, main capability, and observable boundary. It is 
 ## Facts, interview, and rendering
 
 Record lifecycle, capability, artifact, source, and caveat. Ask only when identity or lifecycle changes interpretation. Do not turn artifact existence into adoption or ownership; render a compact neutral orientation.
+
+## Render by depth
+
+- **Brief render:** name/shape, main capability, and observable boundary.
+- **Standard render:** preserve Brief; add lifecycle, core artifacts or entry points, scope, and a consequential caveat.
+- **Deep render:** preserve Standard; add historical names/releases, boundary changes, conflicting descriptions, and unresolved identity or lifecycle evidence where evidenced.
