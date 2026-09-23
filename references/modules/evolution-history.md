@@ -15,3 +15,9 @@ Enable for iterated, migrated, or maintained work. N/A applies only to a genuine
 ## Facts, interview, and rendering
 
 Record phase, date/window, change, trigger, source, consequence, and ownership. Ask what existed before, what prompted the transition, and what changed after it. Do not treat repository creation date as project inception or commit count as iteration depth; render chronology and preserve unknown earlier stages.
+
+## Render by depth
+
+- **Brief render:** major evidenced phases and current state.
+- **Standard render:** preserve Brief; render phase → trigger → major change → current state, including an important chronology boundary.
+- **Deep render:** preserve Standard; add initial state → limitation → redesign/migration → consequence → current state, reconcile chronology conflicts, and preserve uncertain pre-repository history.

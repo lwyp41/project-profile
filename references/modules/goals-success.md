@@ -13,3 +13,9 @@ Recover explicit goals, acceptance conditions, observed outcomes, and unmeasured
 ## Facts, interview, and rendering
 
 Record goal, success condition, result type, source, metric, and caveat. Ask about material success criteria only after inspection. Do not report targets as achieved results; render unmet or unknown conditions visibly.
+
+## Render by depth
+
+- **Brief render:** stated goal and highest-value acceptance condition.
+- **Standard render:** preserve Brief; add observable success condition, supported result classification, and unmet or unknown condition.
+- **Deep render:** preserve Standard; add goal changes, metric definitions, counterevidence, outcome caveats, and material clarification gaps where evidenced.

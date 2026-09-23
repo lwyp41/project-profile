@@ -1,0 +1,64 @@
+{
+  "fixture_id": "depth-observable-v1",
+  "render_directory": "renders",
+  "purpose": "Controlled semantic-coverage evaluation. All runs consume the same frozen evidence categories; no assertion uses prose length.",
+  "fixture": {
+    "technical-architecture": ["boundary", "runtime", "core_components", "component_relationships", "data_flow", "interfaces", "constraint", "limitation", "control_flow", "failure_degradation", "validation_boundary", "decision_rationale", "evolution", "evidence_gap"],
+    "product-workflow": ["primary_flow", "actors", "happy_path", "gates_handoffs", "guarded_path", "public_entries", "state_handoffs", "approval_gate", "source_boundary", "fallback_degradation", "separation_rationale", "failure_prevention"],
+    "decisions-tradeoffs": ["choice", "context", "constraint", "consequence", "rationale_gap", "serious_alternatives", "supported_rationale", "later_validation", "revision", "conflict", "clarification_required"],
+    "evolution-history": ["phases", "current_state", "trigger", "major_change", "chronology_boundary", "initial_state", "limitation", "redesign_migration", "consequence", "chronology_conflict", "pre_repository_uncertainty"]
+  },
+  "module_runs": {
+    "technical-architecture": {
+      "fixture_id": "depth-observable-v1",
+      "available_evidence_categories": ["boundary", "runtime", "core_components", "component_relationships", "data_flow", "interfaces", "constraint", "limitation", "control_flow", "failure_degradation", "validation_boundary", "decision_rationale", "evolution", "evidence_gap"],
+      "results": {
+        "brief": {"recovered_coverage": ["boundary", "runtime", "core_components"], "rendered_coverage": ["boundary", "runtime", "core_components"]},
+        "standard": {"recovered_coverage": ["boundary", "runtime", "core_components", "component_relationships", "data_flow", "interfaces", "constraint", "limitation"], "rendered_coverage": ["boundary", "runtime", "core_components", "component_relationships", "data_flow", "interfaces", "constraint", "limitation"]},
+        "deep": {"recovered_coverage": ["boundary", "runtime", "core_components", "component_relationships", "data_flow", "interfaces", "constraint", "limitation", "control_flow", "failure_degradation", "validation_boundary", "decision_rationale", "evolution", "evidence_gap"], "rendered_coverage": ["boundary", "runtime", "core_components", "component_relationships", "data_flow", "interfaces", "constraint", "limitation", "control_flow", "failure_degradation", "validation_boundary", "decision_rationale", "evolution", "evidence_gap"]}
+      }
+    },
+    "product-workflow": {
+      "fixture_id": "depth-observable-v1",
+      "available_evidence_categories": ["primary_flow", "actors", "happy_path", "gates_handoffs", "guarded_path", "public_entries", "state_handoffs", "approval_gate", "source_boundary", "fallback_degradation", "separation_rationale", "failure_prevention"],
+      "results": {
+        "brief": {"recovered_coverage": ["primary_flow"], "rendered_coverage": ["primary_flow"]},
+        "standard": {"recovered_coverage": ["primary_flow", "actors", "happy_path", "gates_handoffs", "guarded_path"], "rendered_coverage": ["primary_flow", "actors", "happy_path", "gates_handoffs", "guarded_path"]},
+        "deep": {"recovered_coverage": ["primary_flow", "actors", "happy_path", "gates_handoffs", "guarded_path", "public_entries", "state_handoffs", "approval_gate", "source_boundary", "fallback_degradation", "separation_rationale", "failure_prevention"], "rendered_coverage": ["primary_flow", "actors", "happy_path", "gates_handoffs", "guarded_path", "public_entries", "state_handoffs", "approval_gate", "source_boundary", "fallback_degradation", "separation_rationale", "failure_prevention"]}
+      }
+    },
+    "decisions-tradeoffs": {
+      "fixture_id": "depth-observable-v1",
+      "available_evidence_categories": ["choice", "context", "constraint", "consequence", "rationale_gap", "serious_alternatives", "supported_rationale", "later_validation", "revision", "conflict", "clarification_required"],
+      "results": {
+        "brief": {"recovered_coverage": ["choice", "context"], "rendered_coverage": ["choice", "context"]},
+        "standard": {"recovered_coverage": ["choice", "context", "constraint", "consequence", "rationale_gap"], "rendered_coverage": ["choice", "context", "constraint", "consequence", "rationale_gap"]},
+        "deep": {"recovered_coverage": ["choice", "context", "constraint", "consequence", "rationale_gap", "serious_alternatives", "supported_rationale", "later_validation", "revision", "conflict", "clarification_required"], "rendered_coverage": ["choice", "context", "constraint", "consequence", "rationale_gap", "serious_alternatives", "supported_rationale", "later_validation", "revision", "conflict", "clarification_required"]}
+      }
+    },
+    "evolution-history": {
+      "fixture_id": "depth-observable-v1",
+      "available_evidence_categories": ["phases", "current_state", "trigger", "major_change", "chronology_boundary", "initial_state", "limitation", "redesign_migration", "consequence", "chronology_conflict", "pre_repository_uncertainty"],
+      "results": {
+        "brief": {"recovered_coverage": ["phases", "current_state"], "rendered_coverage": ["phases", "current_state"]},
+        "standard": {"recovered_coverage": ["phases", "current_state", "trigger", "major_change", "chronology_boundary"], "rendered_coverage": ["phases", "current_state", "trigger", "major_change", "chronology_boundary"]},
+        "deep": {"recovered_coverage": ["phases", "current_state", "trigger", "major_change", "chronology_boundary", "initial_state", "limitation", "redesign_migration", "consequence", "chronology_conflict", "pre_repository_uncertainty"], "rendered_coverage": ["phases", "current_state", "trigger", "major_change", "chronology_boundary", "initial_state", "limitation", "redesign_migration", "consequence", "chronology_conflict", "pre_repository_uncertainty"]}
+      }
+    }
+  },
+  "multi_module_coverage": {
+    "enabled_applicable_material_modules": ["technical-architecture", "product-workflow", "decisions-tradeoffs", "evolution-history"],
+    "review_dispositions": {
+      "technical-architecture": {"effective_depth": "deep", "recovered_coverage": ["boundary", "runtime", "data_flow", "failure_degradation", "validation_boundary"]},
+      "product-workflow": {"effective_depth": "deep", "recovered_coverage": ["primary_flow", "gates_handoffs", "state_handoffs", "fallback_degradation"]},
+      "decisions-tradeoffs": {"effective_depth": "deep", "recovered_coverage": ["constraint", "choice", "serious_alternatives", "clarification_required"]},
+      "evolution-history": {"effective_depth": "deep", "recovered_coverage": ["initial_state", "limitation", "redesign_migration", "pre_repository_uncertainty"]}
+    },
+    "final_render_destinations": {
+      "technical-architecture": {"destination": "Architecture and runtime", "preserved_coverage": ["boundary", "runtime", "data_flow", "failure_degradation", "validation_boundary"]},
+      "product-workflow": {"destination": "Workflow and controls", "preserved_coverage": ["primary_flow", "gates_handoffs", "state_handoffs", "fallback_degradation"]},
+      "decisions-tradeoffs": {"destination": "Decisions and evidence limits", "preserved_coverage": ["constraint", "choice", "serious_alternatives", "clarification_required"]},
+      "evolution-history": {"destination": "Evolution and current state", "preserved_coverage": ["initial_state", "limitation", "redesign_migration", "pre_repository_uncertainty"]}
+    }
+  }
+}

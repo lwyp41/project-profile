@@ -20,6 +20,30 @@ Project types recommend modules; the user-selected profile mode determines the p
 | `evolution-history` | Initial state, changes, migrations, and current state. | `modules/evolution-history.md` |
 | `risks-limitations` | Failure modes, unresolved issues, risks, and evidence boundaries. | `modules/risks-limitations.md` |
 
+## Custom selector normalization
+
+Canonical IDs are valid but optional user input. During Custom onboarding, resolve a number, localized label, accepted alias, or canonical ID to the ID below before applying the depth. Accept localized natural-language group expressions (for example, `架构、流程、Agent、决策、验证、演进`) and `全部` / `其他` as default-plus-overrides. Ask only if a reference remains ambiguous after this normalization.
+
+| Numeric selector | Chinese label | Accepted aliases | Canonical ID |
+|---|---|---|---|
+| 1 | 项目概览 | 概览, overview | `project-overview` |
+| 2 | 背景与问题 | 背景, 问题 | `background-problem` |
+| 3 | 用户与相关方 | 用户, 相关方 | `users-stakeholders` |
+| 4 | 目标与成功标准 | 目标, 成功标准 | `goals-success` |
+| 5 | 需求与约束 | 需求, 约束 | `requirements-constraints` |
+| 6 | 产品与流程 | 流程, 工作流 | `product-workflow` |
+| 7 | 技术架构 | 架构 | `technical-architecture` |
+| 8 | AI / Agent 设计 | Agent, AI, 智能体 | `ai-agent-design` |
+| 9 | 信息与数据 | 信息, 数据 | `information-data` |
+| 10 | 决策与取舍 | 决策, 取舍 | `decisions-tradeoffs` |
+| 11 | 个人贡献 | 贡献, 所有权 | `ownership-contribution` |
+| 12 | 验证与 QA | 验证, QA, 测试 | `validation-qa` |
+| 13 | 成果与指标 | 成果, 指标 | `outcomes-metrics` |
+| 14 | 项目演进 | 演进, 历史 | `evolution-history` |
+| 15 | 风险与限制 | 风险, 限制 | `risks-limitations` |
+
+Normalize depth clauses in user order; an explicit module override wins over `全部`/`其他` defaults. Equivalent tables and aliases must be localized for other request languages.
+
 ## Profile modes
 
 A profile mode must be selected explicitly before discovery begins.

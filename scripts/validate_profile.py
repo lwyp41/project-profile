@@ -17,6 +17,8 @@ MODULES = {
 CLAIM_TYPES = {"fact", "design_intent", "mechanism", "observed_outcome", "measured_outcome"}
 LEDGER_MARKER = "<!-- project-profile-ledger: v2 -->"
 LEDGER_COLUMN_COUNT = 14
+MODULE_COVERAGE_MARKER = "<!-- project-profile-module-coverage: v2 -->"
+MODULE_COVERAGE_COLUMN_COUNT = 8
 
 
 def table_cells(line: str) -> list[str]:
@@ -40,6 +42,29 @@ def validate(path: Path, testimony_fixture: Path | None = None) -> list[str]:
     if len(table_dividers) < 4:
         errors.append("missing required fact-pack, coverage, or ledger tables")
     lines = text.splitlines()
+    module_coverage_indexes = [index for index, line in enumerate(lines) if line.strip() == MODULE_COVERAGE_MARKER]
+    if len(module_coverage_indexes) != 1:
+        errors.append("missing or repeated module coverage schema marker")
+    for marker_index in module_coverage_indexes:
+        header_index = marker_index + 1
+        while header_index < len(lines) and not lines[header_index].startswith("|"):
+            header_index += 1
+        if header_index >= len(lines) or len(table_cells(lines[header_index])) != MODULE_COVERAGE_COLUMN_COUNT:
+            errors.append("module coverage header must contain eight localized columns")
+            continue
+        for row in lines[header_index + 2:]:
+            if not row.startswith("|"):
+                break
+            cells = table_cells(row)
+            if len(cells) != MODULE_COVERAGE_COLUMN_COUNT:
+                errors.append("module coverage row has wrong column count")
+                break
+            applicability, depth, fact_ids, recovered, destination = cells[1], cells[2], cells[4], cells[5], cells[7]
+            has_material_facts = fact_ids.lower() not in {"", "none", "—", "无"}
+            enabled_applicable = depth.lower() != "off" and applicability.lower() not in {"not applicable", "不适用"}
+            if enabled_applicable and has_material_facts and (not recovered.strip() or recovered.lower() in {"none", "—", "无"} or not destination.strip()):
+                errors.append(f"module coverage row for {cells[0]} must preserve recovered coverage and render destination")
+                break
     marker_indexes = [index for index, line in enumerate(lines) if line.strip() == LEDGER_MARKER]
     if len(marker_indexes) != 1:
         errors.append("missing or repeated canonical fact ledger schema marker")

@@ -13,3 +13,9 @@ Recover automated/manual checks, CI, evals, validators, visual/structural QA, an
 ## Facts, interview, and rendering
 
 Record check, command, scope, result, source, limitation, and claim type. Ask which checks actually ran when material. Do not claim visual or end-to-end QA from a static checker; render verified execution separately from designed gates.
+
+## Render by depth
+
+- **Brief render:** primary check, scope, and whether execution is evidenced.
+- **Standard render:** preserve Brief; add test/eval strategy, representative fixtures or cases, recent result when evidenced, and untested boundary.
+- **Deep render:** preserve Standard; add coverage gaps, regression/failure history, manual-review gates, deterministic limits of each check, and unresolved execution evidence.

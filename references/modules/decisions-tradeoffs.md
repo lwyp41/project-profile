@@ -15,3 +15,9 @@ Enable for architecture, workflow, safety, cost, compatibility, scope, or qualit
 ## Facts, interview, and rendering
 
 Record constraint, alternatives, choice, rationale, consequence, source, ownership, caveat, and conflict. Ask which alternatives were serious, why this was chosen, and what followed. Never invent alternatives from common practice or a measured benefit from a mechanism; render only supported rationale.
+
+## Render by depth
+
+- **Brief render:** the most consequential supported choice and its immediate context.
+- **Standard render:** preserve Brief; render constraint → choice → consequence, plus supported rationale or an explicit evidence boundary.
+- **Deep render:** preserve Standard; add serious alternatives, supported rationale, later validation or revision, conflicts, and `CLARIFICATION_REQUIRED` for material missing rationale rather than inventing it.

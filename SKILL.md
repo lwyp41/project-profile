@@ -47,34 +47,34 @@ If the user's request already explicitly names one of these modes, that explicit
 
 Keep this explanation brief. The purpose of the question is to choose investigation priorities, not writing style.
 
-For **Custom**, complete an explicit onboarding exchange before discovery. Immediately after Custom is selected, proactively show the four depth levels, all 15 canonical module IDs with short descriptions localized to the user's language, and at least one compact configuration example. State that unspecified applicable modules use a visible `standard` baseline unless the user explicitly chooses another default depth. Explain that the user does not need to configure all 15 modules individually, may provide only exception overrides, and may use natural-language configuration. Accept compact instructions such as "deep decisions + ownership, standard architecture, off outcomes". Clarify only unknown module IDs, invalid depths, or an ambiguity that would materially change investigation.
+For **Custom**, complete an explicit onboarding exchange before discovery. Immediately after Custom is selected, proactively show the four depth levels, all 15 modules with a numeric selector, a short label localized to the user's language, and the canonical ID. Canonical IDs are optional user input: normalize numeric selectors, localized labels, reasonable aliases, natural-language groups, and canonical IDs into the canonical module configuration. State that unspecified applicable modules use a visible `standard` baseline unless the user explicitly chooses another default depth. Explain that the user does not need to configure all 15 modules individually and may provide only exception overrides. Clarify only unknown module references, invalid depths, or an ambiguity that would materially change investigation.
 
 The Custom onboarding must include this complete choice space (use the module-registry descriptions, translated into the user's language):
 
 | Depth | Meaning |
-|---|---|
+|---|---|---|
 | `off` | Do not independently investigate or render the module. |
-| `brief` | Inspect only obvious high-signal sources. |
-| `standard` | Inspect primary artifacts plus relevant documentation, examples, and tests. |
-| `deep` | Also investigate history, alternatives, conflicts, outcomes, failures, and user-answerable gaps. |
+| `brief` | Inspect only obvious high-signal sources; render orientation and highest-value facts. |
+| `standard` | Inspect primary artifacts plus relevant documentation, examples, and tests; render a complete project-summary account of what exists, how it works, a major constraint/choice/result, and the evidence boundary where applicable. |
+| `deep` | Also investigate history, alternatives, conflicts, outcomes, failures, and user-answerable gaps; preserve the additional evidenced semantic categories in rendering. |
 
-| Module ID | Short description |
-|---|---|
-| `project-overview` | Shape, lifecycle, main capability, and observable boundary. |
-| `background-problem` | Triggering context, problem, and risk. |
-| `users-stakeholders` | Intended or actual users and affected parties. |
-| `goals-success` | Goals, success conditions, and unverified targets. |
-| `requirements-constraints` | Functional, operational, privacy, cost, policy, and compatibility constraints. |
-| `product-workflow` | Inputs, routing, human gates, handoffs, and outputs. |
-| `technical-architecture` | System boundaries, runtime, interfaces, integrations, and deterministic components. |
-| `ai-agent-design` | LLM, prompt, tool, context, human-in-the-loop, and evaluation design. |
-| `information-data` | Sources of truth, provenance, data boundaries, and generated-output policy. |
-| `decisions-tradeoffs` | Constraints, alternatives, choices, rationale, and consequences. |
-| `ownership-contribution` | Personal work, collaboration, maintenance, and AI-assistance boundary. |
-| `validation-qa` | Automated or manual validation, regression, and untested boundary. |
-| `outcomes-metrics` | Usage, scale, efficiency, quality, and measurement caveats. |
-| `evolution-history` | Initial state, changes, migrations, and current state. |
-| `risks-limitations` | Failure modes, unresolved issues, risks, and evidence boundaries. |
+| # / localized label | Module ID | Short description |
+|---|---|---|
+| 1. 项目概览 | `project-overview` | Shape, lifecycle, main capability, and observable boundary. |
+| 2. 背景与问题 | `background-problem` | Triggering context, problem, and risk. |
+| 3. 用户与相关方 | `users-stakeholders` | Intended or actual users and affected parties. |
+| 4. 目标与成功标准 | `goals-success` | Goals, success conditions, and unverified targets. |
+| 5. 需求与约束 | `requirements-constraints` | Functional, operational, privacy, cost, policy, and compatibility constraints. |
+| 6. 产品与流程 | `product-workflow` | Inputs, routing, human gates, handoffs, and outputs. |
+| 7. 技术架构 | `technical-architecture` | System boundaries, runtime, interfaces, integrations, and deterministic components. |
+| 8. AI / Agent 设计 | `ai-agent-design` | LLM, prompt, tool, context, human-in-the-loop, and evaluation design. |
+| 9. 信息与数据 | `information-data` | Sources of truth, provenance, data boundaries, and generated-output policy. |
+| 10. 决策与取舍 | `decisions-tradeoffs` | Constraints, alternatives, choices, rationale, and consequences. |
+| 11. 个人贡献 | `ownership-contribution` | Personal work, collaboration, maintenance, and AI-assistance boundary. |
+| 12. 验证与 QA | `validation-qa` | Automated or manual validation, regression, and untested boundary. |
+| 13. 成果与指标 | `outcomes-metrics` | Usage, scale, efficiency, quality, and measurement caveats. |
+| 14. 项目演进 | `evolution-history` | Initial state, changes, migrations, and current state. |
+| 15. 风险与限制 | `risks-limitations` | Failure modes, unresolved issues, risks, and evidence boundaries. |
 
 Show a compact example such as:
 
@@ -85,20 +85,27 @@ brief: outcomes-metrics
 off: ownership-contribution
 ```
 
-Natural-language equivalents are valid. A complete configuration can be confirmed concisely and then proceed to discovery without repeating the full onboarding. A partial override is interpreted against the visible baseline and confirmed; for example, `deep decisions and architecture; off outcomes` means standard for every other applicable module, deep for `decisions-tradeoffs` and `technical-architecture`, and off for `outcomes-metrics`. Explicit module overrides always take precedence over the default depth. Do not begin new repository discovery until Custom configuration is resolved.
+For Chinese, explicitly accept either of these without requiring canonical IDs:
+
+```text
+全部 standard；6,7,8,10,12,14 deep；11 brief
+架构、流程、Agent、决策、验证、演进 deep，其他 standard，个人贡献 brief
+```
+
+Natural-language equivalents are valid and must be localized for the request language. A complete configuration can be confirmed concisely and then proceed to discovery without repeating the full onboarding. A partial override is interpreted against the visible baseline and confirmed; for example, `deep decisions and architecture; off outcomes` means standard for every other applicable module, deep for `decisions-tradeoffs` and `technical-architecture`, and off for `outcomes-metrics`. Explicit module overrides always take precedence over the default depth. Do not begin new repository discovery until Custom configuration is resolved.
 
 ## Workflow
 
 1. **Select profile mode — hard gate:** satisfy the mandatory profile-mode selection above. No repository investigation begins before this state is complete. For Custom, the onboarding/configuration exchange is part of this gate; `PROFILE_MODE_SELECTED` alone is insufficient.
 2. **Discover:** inventory repository, docs, configuration, examples, outputs, tests, metadata, and Git history; record inspected and unavailable sources.
 3. **Classify:** select evidence-backed primary/secondary types from `SOFTWARE`, `AI_AGENT`, `AGENT_SKILL`, `PROMPT_SYSTEM`, `LIBRARY`, `DATA_PROJECT`, `RESEARCH_PROJECT`, `DOCUMENTATION_PROJECT`, `SPARSE_ARTIFACT`. Types route investigation, not a fixed template.
-4. **Configure:** apply the user-selected mode, type recommendations, and explicit overrides. Build a Module Coverage Map: applicability, effective depth, priority/inspected sources, fact IDs, gaps, interview candidates, and render decision. For `custom`, unspecified applicable modules use the explicitly confirmed default depth (`standard` unless the user chose another one), and user-selected module overrides are authoritative.
-5. **Extract:** investigate enabled modules at their effective depth. Before prose, build a Canonical Fact Model with `id`, `module`, `claim`, `claim_type`, `status`, `source_kind`, `source_locator`, `time_context`, `ownership`, `metric`, `rationale`, `caveat`, `conflict`, and `review_state` where applicable.
+4. **Configure:** apply the user-selected mode, type recommendations, and explicit overrides. Build a Module Coverage Map: applicability, effective depth, priority/inspected sources, fact IDs, recovered semantic coverage, gaps, interview candidates, and proposed render destination. For `custom`, unspecified applicable modules use the explicitly confirmed default depth (`standard` unless the user chose another one), and user-selected module overrides are authoritative.
+5. **Extract:** investigate enabled modules at their effective depth. Recover the module-specific semantic categories required at that depth where evidence exists, and record any unsupported material category as a gap rather than inventing it. Before prose, build a Canonical Fact Model with `id`, `module`, `claim`, `claim_type`, `status`, `source_kind`, `source_locator`, `time_context`, `ownership`, `metric`, `rationale`, `caveat`, `conflict`, and `review_state` where applicable.
 6. **Reconstruct:** independently recover timeline/evolution; decisions as constraint → alternatives → choice → rationale → consequence; ownership/contribution; and outcomes/scale. A visible choice without supported rationale is a clarification need.
 7. **Interview — conditional but binding:** after investigation, run the gap scan in [interview-policy.md](references/interview-policy.md). If any material, user-answerable gap exists, ask 3–5 focused questions per round. If none exist, explicitly record why the interview is skipped. For `resume`, assess Ownership, Scale, Complexity, Decision, Impact, and Iteration before review.
 8. **Validate:** check every consequential fact, metric, ownership assertion, inference, conflict, and Unknown/N/A choice against the evidence policy.
-9. **Review — hard gate:** show the selected mode, effective module/depth configuration, material facts/states, fact pack, unresolved items, conflicts, proposed Unknown/N/A decisions, interview outcome, and resume-signal coverage when applicable. Stop and wait for user approval or correction. Do not render the final profile in the same turn unless the user explicitly requested an unattended/no-review run before the review state was reached.
-10. **Render:** only after `REVIEW_APPROVED`, use [templates/PROJECT_PROFILE.md](templates/PROJECT_PROFILE.md); render only enabled, applicable modules, neutral downstream facts, and a complete evidence appendix.
+9. **Review — hard gate:** for every enabled, applicable module show `module → effective depth → inspected source classes → recovered coverage → material gaps/clarification state → proposed render destination`; show an explicit no-material-facts disposition when that is the reason no final prose will result. Also show material facts/states, fact pack, unresolved items, conflicts, proposed Unknown/N/A decisions, interview outcome, and resume-signal coverage when applicable. Stop and wait for user approval or correction. Do not render the final profile in the same turn unless the user explicitly requested an unattended/no-review run before the review state was reached.
+10. **Render:** only after `REVIEW_APPROVED`, use [templates/PROJECT_PROFILE.md](templates/PROJECT_PROFILE.md); render only enabled, applicable modules, neutral downstream facts, and a complete evidence appendix. Preserve every evidenced semantic category recorded as recovered coverage at the module's effective depth. Related modules may share a natural section only if each module's coverage remains identifiable; an enabled, applicable module with material facts cannot silently disappear.
 
 ## Anti-rationalization rules
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Make Custom depth configuration accept numeric selectors, localized labels, aliases, natural language, and canonical IDs.
+- Make Brief, Standard, and Deep observable in Review and rendering through module-specific semantic-coverage contracts; Standard is now explicitly a complete project-summary depth.
+- Add a controlled synthetic depth evaluation for architecture, workflow, decisions, and evolution plus multi-module render-preservation coverage.
+
 All notable changes to `project-profile` are recorded here.
 
 ## [Unreleased]

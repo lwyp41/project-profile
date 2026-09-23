@@ -23,7 +23,7 @@ For `purpose: resume`, before the review gate explicitly assess these six signal
 The review gate is a user-visible stop, not an internal mental step. Show:
 
 - selected profile mode;
-- effective module/depth configuration;
+- effective module/depth configuration, with every enabled applicable module shown as `module → effective depth → inspected source classes → recovered coverage → proposed render destination`;
 - material facts and evidence states;
 - fact pack;
 - unresolved facts;
